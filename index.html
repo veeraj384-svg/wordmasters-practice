@@ -3,8 +3,34 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>WordMasters Practice</title>
+  <title>Teacher Mode • Dashboard</title>
   <link rel="stylesheet" href="/assets/styles.css">
+  <style>
+    .teacherBanner{
+      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      background: rgba(255, 196, 0, .10);
+      border: 1px solid rgba(255, 196, 0, .28);
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-top: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+    }
+    .teacherBanner .left{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+    .badge{
+      display:inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255, 196, 0, .14);
+      border: 1px solid rgba(255, 196, 0, .30);
+      font-weight: 800;
+      letter-spacing: .2px;
+    }
+    .teacherBanner .smallNote{ color: var(--muted); font-size: 13px; }
+    .dangerBtn{
+      background: linear-gradient(180deg, rgba(239,68,68,.55), rgba(239,68,68,.35));
+      border: 1px solid rgba(239,68,68,.40);
+    }
+  </style>
 </head>
 <body>
   <script src="/assets/ui.js"></script>
@@ -12,78 +38,59 @@
   <div class="wrap">
     <div class="bar">
       <div>
-        <h1>WordMasters Practice</h1>
-        <p class="sub">High-quality vocabulary practice: dropdown story, quizzes, mixed review, and games.</p>
+        <h1>Teacher Mode</h1>
+        <p class="sub">Private dashboard (password required). Use this to reveal answers, print keys, and manage practice.</p>
       </div>
       <div class="actions">
-        <span class="pill" id="progressPill">Progress: 0%</span>
-        <button class="btn" onclick="resetProgress()">Reset progress</button>
+        <a class="pill" href="/index.html">Student Home</a>
+        <a class="pill" href="/teacher/answer_keys.html">Answer Keys</a>
       </div>
     </div>
 
+    <div class="teacherBanner">
+      <div class="left">
+        <span class="badge">🔒 TEACHER MODE ACTIVE</span>
+        <span class="smallNote">If you can see this page, your login is working correctly.</span>
+      </div>
+      <button class="btn dangerBtn" onclick="lockDownReminder()">Change password later</button>
+    </div>
+
     <div class="card" style="margin-top:14px;">
-      <div class="kicker">Start here</div>
+      <div class="kicker">Teacher tools</div>
+
       <div class="grid">
-        <a class="linkCard" href="/vocab_dropdown_story.html">
-          <div class="title">Dropdown Story</div>
-          <p class="desc">Fill blanks with dropdowns + instant checking.</p>
+        <a class="linkCard" href="/teacher/answer_keys.html">
+          <div class="title">Answer Keys + Explanations</div>
+          <p class="desc">Full keys for Week 1, Mixed Review, Games—plus explanations and common mistakes.</p>
         </a>
 
-        <a class="linkCard" href="/week1.html">
-          <div class="title">Week 1 Quiz</div>
-          <p class="desc">Match meanings + choose best word in context.</p>
+        <a class="linkCard" href="/teacher/reveal.html">
+          <div class="title">Reveal Answers (Teacher View)</div>
+          <p class="desc">Open teacher versions of student pages with “Show Answers” buttons.</p>
         </a>
 
-        <a class="linkCard" href="/week2.html">
-          <div class="title">Week 2 Writing</div>
-          <p class="desc">Write strong sentences + smart checks + scoring rubric.</p>
+        <a class="linkCard" href="/teacher/printables.html">
+          <div class="title">Printables</div>
+          <p class="desc">Printable keys and practice sheets (clean print layout).</p>
         </a>
 
-        <a class="linkCard" href="/mixed_review.html">
-          <div class="title">Mixed Review</div>
-          <p class="desc">Context clues, synonyms/antonyms, and tricky usage.</p>
-        </a>
-
-        <a class="linkCard" href="/games.html">
-          <div class="title">Games</div>
-          <p class="desc">Timed sprint, matching game, and “spot the faux pas”.</p>
-        </a>
-
-        <a class="linkCard" href="/teacher/index.html">
-          <div class="title">Teacher Area</div>
-          <p class="desc">Password-protected answer keys, rubrics, and printables.</p>
+        <a class="linkCard" href="/teacher/settings.html">
+          <div class="title">Teacher Settings</div>
+          <p class="desc">Quick instructions: rotate password, update content, and troubleshoot.</p>
         </a>
       </div>
 
       <hr>
       <p class="small">
-        Tip: This site saves progress in your browser (no sign-in needed). Teacher pages are password protected at the server level.
+        Note: Students cannot reach this area without the password because Cloudflare blocks it server-side.
       </p>
     </div>
   </div>
 
 <script>
-const KEY = "wm_progress_v1";
-function getProgress(){
-  try{ return JSON.parse(localStorage.getItem(KEY) || "{}"); }catch(e){ return {}; }
+function lockDownReminder(){
+  alert("To change the teacher password: Cloudflare Pages → Settings → Variables & secrets → edit BASIC_USER/BASIC_PASS → Redeploy latest.");
 }
-function setProgress(p){ localStorage.setItem(KEY, JSON.stringify(p)); }
-function calcPct(p){
-  const items = ["story","week1","week2","mixed","games"];
-  let done = 0;
-  for(const k of items){ if(p[k]) done++; }
-  return Math.round((done/items.length)*100);
-}
-function refresh(){
-  const p = getProgress();
-  document.getElementById("progressPill").textContent = `Progress: ${calcPct(p)}%`;
-}
-function resetProgress(){
-  setProgress({});
-  refresh();
-  alert("Progress reset.");
-}
-refresh();
 </script>
 </body>
 </html>
