@@ -1,61 +1,68 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>About / Instructions</title>
 <style>
-  body{font-family:system-ui,Arial;max-width:900px;margin:28px auto;padding:0 14px;line-height:1.65}
-  h1{margin:0 0 6px}
-  .sub{margin:0 0 16px;color:#444}
-  .box{border:1px solid #ddd;border-radius:12px;padding:14px;margin:12px 0}
-  code{background:#f2f2f2;padding:2px 6px;border-radius:8px}
-  a{color:#1a4;text-decoration:none}
-  a:hover{text-decoration:underline}
+  :root{
+    --bg:#0b1020; --card:#111a33; --text:#eaf0ff; --muted:#b7c3ff;
+    --btn:#1f2f63; --btn2:#243a7a; --line:rgba(255,255,255,.10);
+  }
+  body{ margin:0; font-family:system-ui,Segoe UI,Arial; background:linear-gradient(180deg,var(--bg),#070a14); color:var(--text); }
+  .wrap{ max-width:920px; margin:0 auto; padding:26px 16px 44px; }
+  h1{ margin:0; font-size:28px; letter-spacing:.2px;}
+  .sub{ margin:6px 0 0; color:var(--muted); line-height:1.35}
+  .card{ background:rgba(17,26,51,.88); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:16px; box-shadow:0 10px 30px rgba(0,0,0,.35); margin-top:14px; }
+  .pill{ display:inline-block; padding:5px 10px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid var(--line); color:var(--muted); font-size:12px; text-decoration:none; }
+  .pill:hover{ text-decoration:underline; }
+  code{ background:rgba(255,255,255,.08); padding:2px 6px; border-radius:8px; }
+  a{ color:var(--muted); }
+  ul,ol{ color:var(--muted); }
+  .kicker{ font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.8px; margin-bottom:8px; }
 </style>
 </head>
 <body>
+  <div class="wrap">
+    <h1>About / Instructions</h1>
+    <p class="sub">How to use the site and how to add new practice pages.</p>
+    <a class="pill" href="index.html">⬅ Home</a>
 
-<h1>About / Instructions</h1>
-<p class="sub">How to use this site and how to add new practice pages.</p>
+    <div class="card">
+      <div class="kicker">For students</div>
+      <ol>
+        <li>Start at <a href="index.html">Home</a>.</li>
+        <li>Do <a href="vocab_dropdown_story.html">Dropdown Story</a> first (fast review).</li>
+        <li>Then do <a href="week1.html">Week 1 Quiz</a> (definitions + context).</li>
+        <li>Finish with <a href="week2.html">Week 2 Challenge</a> (write sentences).</li>
+      </ol>
+    </div>
 
-<div class="box">
-  <h2>How students should use it</h2>
-  <ol>
-    <li>Start at <a href="index.html">Home</a>.</li>
-    <li>Do <a href="vocab_dropdown_story.html">Dropdown Story</a> first (fast review).</li>
-    <li>Then do <a href="week1.html">Week 1 Quiz</a> (definitions + context).</li>
-    <li>Finish with <a href="week2.html">Week 2 Challenge</a> (write sentences).</li>
-  </ol>
-</div>
+    <div class="card">
+      <div class="kicker">For parents / teachers</div>
+      <ul>
+        <li>Ask the student to explain <em>why</em> the chosen word fits.</li>
+        <li>For Week 2, use the rubric section at the bottom of the page (<code>#teacher</code>).</li>
+        <li>Repeat until the student can use each word naturally.</li>
+      </ul>
+    </div>
 
-<div class="box">
-  <h2>How parents/teachers can use it</h2>
-  <ul>
-    <li>Have the student explain <em>why</em> the chosen word fits.</li>
-    <li>For Week 2, use the rubric at the bottom of the page (<code>#teacher</code> section).</li>
-    <li>Repeat until the student can use each word naturally in conversation.</li>
-  </ul>
-</div>
+    <div class="card">
+      <div class="kicker">Add more pages</div>
+      <p class="sub">
+        In GitHub: <strong>Add file → Create new file</strong>, name it like <code>week3.html</code>, paste code, and commit.
+        Then add a new button in <code>index.html</code> linking to <code>week3.html</code>.
+      </p>
+    </div>
 
-<div class="box">
-  <h2>Add more files (the easy way)</h2>
-  <p>
-    In GitHub: <strong>Add file → Create new file</strong>, name it like <code>week3.html</code>, paste content, and commit.
-    Then add a new button in <code>index.html</code> linking to <code>week3.html</code>.
-  </p>
-</div>
-
-<div class="box">
-  <h2>Troubleshooting</h2>
-  <ul>
-    <li>If a button “does nothing,” it usually means the file doesn’t exist or the filename doesn’t match.</li>
-    <li>Cloudflare Pages redeploys automatically after you commit changes.</li>
-    <li>If you want missing pages to show a clear message, add a <code>404.html</code> file.</li>
-  </ul>
-</div>
-
-<p><a href="index.html">⬅ Back to Home</a></p>
-
+    <div class="card">
+      <div class="kicker">Troubleshooting</div>
+      <ul>
+        <li>If a button “does nothing,” it usually means the filename doesn’t exist or doesn’t match.</li>
+        <li>Cloudflare redeploys automatically after you commit changes.</li>
+        <li>Hard refresh: <code>Ctrl + Shift + R</code> if you don’t see updates right away.</li>
+      </ul>
+    </div>
+  </div>
 </body>
 </html>
