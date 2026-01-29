@@ -13,7 +13,7 @@
     .wrap{ max-width:920px; margin:0 auto; padding:28px 16px 44px;}
     header{ display:flex; gap:12px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; }
     h1{ margin:0; font-size:28px; letter-spacing:.3px;}
-    .sub{ margin:6px 0 0; color:var(--muted); line-height:1.3}
+    .sub{ margin:6px 0 0; color:var(--muted); line-height:1.35}
     .card{ background:rgba(17,26,51,.85); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:16px; box-shadow:0 10px 30px rgba(0,0,0,.35);}
     .grid{ display:grid; gap:12px; margin-top:16px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));}
     a.btn{
@@ -41,6 +41,8 @@
     .teacher{ display:none; margin-top:12px;}
     .teacher.show{ display:block;}
     .small{ font-size:12px; color:var(--muted);}
+    .toplinks a{ color: var(--muted); text-decoration:none; }
+    .toplinks a:hover{ text-decoration:underline; }
   </style>
 </head>
 <body>
@@ -48,7 +50,13 @@
     <header>
       <div>
         <h1>WordMasters Practice</h1>
-        <p class="sub">Choose an activity. Add more pages anytime — just upload new <code>.html</code> files.</p>
+        <p class="sub">Pick an activity. Everything here works online on your <code>.pages.dev</code> site.</p>
+        <p class="sub toplinks">
+          <a href="about.html">About</a> •
+          <a href="week1.html">Week 1</a> •
+          <a href="week2.html">Week 2</a> •
+          <a href="vocab_dropdown_story.html">Dropdown Story</a>
+        </p>
       </div>
       <div class="row">
         <label class="toggle">
@@ -63,29 +71,28 @@
       <div class="kicker">Start here</div>
       <div class="grid">
 
-        <!-- ✅ Change these links to match your actual filenames in the repo -->
         <a class="btn" href="vocab_dropdown_story.html">
           <div class="kicker">Vocabulary</div>
           <div class="title">Dropdown Story</div>
-          <p class="desc">Fill in the blanks using a dropdown menu. Great for WordMasters practice.</p>
+          <p class="desc">Fill blanks using dropdowns + check answers instantly.</p>
         </a>
 
         <a class="btn" href="week1.html">
-          <div class="kicker">WordMasters</div>
-          <div class="title">Week 1 Practice</div>
-          <p class="desc">Vocabulary + usage practice for this week (add more weeks anytime).</p>
+          <div class="kicker">Practice</div>
+          <div class="title">Week 1 Quiz</div>
+          <p class="desc">Definitions + sentence choice practice (auto-check).</p>
         </a>
 
         <a class="btn" href="week2.html">
-          <div class="kicker">WordMasters</div>
-          <div class="title">Week 2 Practice</div>
-          <p class="desc">Another weekly set. If you don’t have it yet, this link will work once you upload it.</p>
+          <div class="kicker">Practice</div>
+          <div class="title">Week 2 Challenge</div>
+          <p class="desc">Use each word in a sentence + quick scoring.</p>
         </a>
 
         <a class="btn" href="about.html">
           <div class="kicker">Info</div>
           <div class="title">About / Instructions</div>
-          <p class="desc">How to use the site + tips for parents & students.</p>
+          <p class="desc">How to use the site, plus tips for parents & students.</p>
         </a>
 
       </div>
@@ -94,30 +101,29 @@
         <hr style="border:0;border-top:1px solid rgba(255,255,255,.10);margin:14px 0;">
         <div class="kicker">Teacher mode</div>
         <p class="desc">
-          Put links here that you don’t want students clicking accidentally (answer keys, editing notes, etc.).
+          Teacher mode shows answer guidance and reset tips. (Not password-protected.)
         </p>
-
         <div class="grid" style="margin-top:10px">
-          <a class="btn" href="answers_week1.html">
-            <div class="kicker">Answer Key</div>
-            <div class="title">Week 1 Answers</div>
-            <p class="desc">Only visible when Teacher mode is ON.</p>
+          <a class="btn" href="week1.html#teacher">
+            <div class="kicker">Hints</div>
+            <div class="title">Week 1 Answer Guidance</div>
+            <p class="desc">Scroll to teacher section automatically.</p>
           </a>
 
-          <a class="btn" href="answers_week2.html">
-            <div class="kicker">Answer Key</div>
-            <div class="title">Week 2 Answers</div>
-            <p class="desc">Only visible when Teacher mode is ON.</p>
+          <a class="btn" href="week2.html#teacher">
+            <div class="kicker">Rubric</div>
+            <div class="title">Week 2 Scoring Rubric</div>
+            <p class="desc">Quick rubric for sentence quality.</p>
           </a>
         </div>
 
         <p class="small" style="margin-top:10px">
-          Tip: Teacher mode is just a “hide/show” — it’s not a password. If you need password protection, tell me and I’ll show options.
+          Tip: Use Teacher mode on your device; students can use normal mode.
         </p>
       </div>
 
       <footer>
-        <strong>Adding new pages:</strong> upload a new file like <code>week3.html</code> to your repo, then add a button link here.
+        <strong>Add more pages:</strong> create <code>week3.html</code>, then add another button here.
       </footer>
     </div>
   </div>
@@ -129,7 +135,6 @@
       box.classList.toggle('show', toggle.checked);
       localStorage.setItem('teacherMode', toggle.checked ? '1' : '0');
     });
-    // remember setting
     if (localStorage.getItem('teacherMode') === '1') {
       toggle.checked = true;
       box.classList.add('show');
