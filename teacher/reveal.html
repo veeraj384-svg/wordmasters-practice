@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Reveal Answers</title>
+  <title>Teacher • Reveal Answers</title>
   <link rel="stylesheet" href="/assets/styles.css">
   <style>
     .answer { display:none; margin-top:6px; color:#c7e3ff; }
@@ -17,7 +17,7 @@
     <h1>Reveal Answers</h1>
     <div class="actions">
       <a class="pill" href="/teacher/index.html">Dashboard</a>
-      <button class="btn" onclick="toggle()">Show / Hide Answers</button>
+      <button class="btn" onclick="toggle()">Show / Hide</button>
       <button class="btn dangerBtn" onclick="logout()">Log out</button>
     </div>
   </div>
@@ -28,7 +28,7 @@
   </div>
 
   <div class="card question">
-    <p><b>2.</b> The coach demanded a ________ training schedule.</p>
+    <p><b>2.</b> The coach demanded a ________ schedule.</p>
     <div class="answer">rigorous</div>
   </div>
 
@@ -39,21 +39,25 @@
 </div>
 
 <script>
-let on = false;
+let open = false;
+
 function toggle() {
-  on = !on;
+  open = !open;
   document.querySelectorAll(".question").forEach(q =>
-    q.classList.toggle("show", on)
+    q.classList.toggle("show", open)
   );
 }
 
 function logout() {
-  const loc = window.location;
-  window.location.href = loc.protocol + "//logout:logout@" + loc.host + "/teacher/";
-  setTimeout(() => window.location.href = "/index.html", 500);
+  const host = location.host;
+  location.href = "https://logout:logout@" + host + "/teacher/";
+  setTimeout(() => {
+    location.replace("/index.html");
+  }, 700);
 }
 </script>
 
 </body>
 </html>
+
 
