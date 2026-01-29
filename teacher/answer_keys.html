@@ -1,46 +1,101 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Answer Keys</title>
-<link rel="stylesheet" href="/assets/styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Teacher Mode • Answer Keys</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+  <style>
+    .teacherBanner{
+      background: rgba(255, 196, 0, .10);
+      border: 1px solid rgba(255, 196, 0, .28);
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-top: 14px;
+    }
+    .keyItem{ margin:10px 0; }
+    .keyItem b{ display:inline-block; min-width: 110px; }
+    .mini{ font-size: 12px; color: var(--muted); margin-top: 6px; line-height:1.4; }
+    .copy{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      background: rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      padding:10px;
+      border-radius: 12px;
+      overflow:auto;
+    }
+  </style>
 </head>
 <body>
-<script src="/assets/ui.js"></script>
+  <script src="/assets/ui.js"></script>
 
-<div class="wrap">
-  <div class="bar">
-    <div>
-      <h1>Answer Keys + Explanations</h1>
-      <p class="sub">Use these to coach thinking, not just give answers.</p>
+  <div class="wrap">
+    <div class="bar">
+      <div>
+        <h1>Answer Keys</h1>
+        <p class="sub">Keys + explanations (teacher only). Don’t share this link with students.</p>
+      </div>
+      <div class="actions">
+        <a class="pill" href="/teacher/index.html">Teacher Dashboard</a>
+        <button class="btn" onclick="window.print()">Print</button>
+      </div>
+    </div>
+
+    <div class="teacherBanner">
+      <div style="font-weight:900;">🔒 Teacher Mode</div>
+      <div class="mini">These answers are protected by your Cloudflare username/password.</div>
+    </div>
+
+    <div class="card" style="margin-top:14px;">
+      <div class="kicker">Dropdown Story (correct fill)</div>
+      <div class="keyItem"><b>1</b> stamina</div>
+      <div class="keyItem"><b>2</b> evade</div>
+      <div class="keyItem"><b>3</b> sketchy</div>
+      <div class="keyItem"><b>4</b> tyrant</div>
+      <div class="keyItem"><b>5</b> shirk</div>
+      <div class="keyItem"><b>6</b> domineer</div>
+      <div class="keyItem"><b>7</b> mundane</div>
+      <div class="keyItem"><b>8</b> disposition</div>
+      <div class="keyItem"><b>9</b> bicker</div>
+      <div class="keyItem"><b>10</b> etiquette</div>
+      <div class="keyItem"><b>11</b> faux pas</div>
+      <div class="keyItem"><b>12</b> amicable</div>
+      <div class="keyItem"><b>13</b> mettle</div>
+      <div class="keyItem"><b>14</b> enact</div>
+      <div class="keyItem"><b>15</b> establish</div>
+      <div class="keyItem"><b>16</b> rigorous</div>
+      <div class="keyItem"><b>17</b> peaked</div>
+      <div class="keyItem"><b>18</b> snicker</div>
+      <div class="keyItem"><b>19</b> sneer</div>
+      <div class="keyItem"><b>20</b> wrangle</div>
+      <div class="keyItem"><b>21</b> lax</div>
+      <div class="keyItem"><b>22</b> haggard</div>
+      <div class="keyItem"><b>23</b> threshold</div>
+      <div class="keyItem"><b>24</b> derelict</div>
+      <div class="keyItem"><b>25</b> refuse</div>
+    </div>
+
+    <div class="card" style="margin-top:14px;">
+      <div class="kicker">Week 1 — Part 2 (sentence answers)</div>
+      <div class="keyItem"><b>1</b> enact — make a rule/law official</div>
+      <div class="keyItem"><b>2</b> establish — set up a system or routine</div>
+      <div class="keyItem"><b>3</b> rigorous — strict/careful/demanding</div>
+      <div class="keyItem"><b>4</b> peaked — reached the highest point</div>
+      <div class="keyItem"><b>5</b> lax — not strict enough</div>
+      <div class="keyItem"><b>6</b> threshold — doorway/beginning point</div>
+      <div class="keyItem"><b>7</b> sneer — scornful look/response</div>
+      <div class="keyItem"><b>8</b> snicker — quiet rude laugh</div>
+      <div class="keyItem"><b>9</b> bicker — argue about small things</div>
+      <div class="keyItem"><b>10</b> etiquette — rules for polite behavior</div>
+    </div>
+
+    <div class="card" style="margin-top:14px;">
+      <div class="kicker">Teacher trick (optional)</div>
+      <p class="small">Want a “Reveal Answers” button on student pages without editing each page manually? Use the teacher-only versions below:</p>
+      <div class="copy">
+/teacher/reveal.html
+      </div>
     </div>
   </div>
-
-  <div class="card" style="margin-top:14px;">
-    <div class="kicker">Week 1 — Part 2 correct answers (with why)</div>
-
-    <div class="q"><b>enact</b> — you enact a rule/law (you “make it official”).</div>
-    <div class="q"><b>establish</b> — you establish a routine/system (you “set it up”).</div>
-    <div class="q"><b>rigorous</b> — strict, demanding, careful.</div>
-    <div class="q"><b>peaked</b> — reached the highest point.</div>
-    <div class="q"><b>lax</b> — not strict enough.</div>
-    <div class="q"><b>threshold</b> — the doorway/starting line; “right at the beginning.”</div>
-    <div class="q"><b>sneer</b> — scornful look/response (disrespect).</div>
-    <div class="q"><b>snicker</b> — quiet, rude laugh.</div>
-    <div class="q"><b>bicker</b> — argue about small stuff.</div>
-    <div class="q"><b>etiquette</b> — rules for polite behavior.</div>
-
-    <hr>
-    <div class="kicker">Mixed Review — quick keys</div>
-    <p class="small">
-      A1 derelict • A2 wrangle • A3 refuse • A4 rigorous • A5 lax • A6 mettle • A7 evade • A8 mundane • A9 domineer
-    </p>
-    <p class="small">
-      B synonyms: amicable=friendly, sketchy=suspicious, mundane=ordinary, bicker=argue •
-      antonyms: lax=strict, amicable=hostile, refuse=accept, derelict=maintained, sneer=praise
-    </p>
-  </div>
-</div>
 </body>
 </html>
