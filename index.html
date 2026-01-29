@@ -4,141 +4,86 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>WordMasters Practice</title>
-  <style>
-    :root{
-      --bg:#0b1020; --card:#111a33; --text:#eaf0ff; --muted:#b7c3ff;
-      --btn:#1f2f63; --btn2:#243a7a; --ok:#22c55e; --warn:#f59e0b;
-    }
-    body{ margin:0; font-family:system-ui,Segoe UI,Arial; background:linear-gradient(180deg,var(--bg),#070a14); color:var(--text);}
-    .wrap{ max-width:920px; margin:0 auto; padding:28px 16px 44px;}
-    header{ display:flex; gap:12px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; }
-    h1{ margin:0; font-size:28px; letter-spacing:.3px;}
-    .sub{ margin:6px 0 0; color:var(--muted); line-height:1.35}
-    .card{ background:rgba(17,26,51,.85); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:16px; box-shadow:0 10px 30px rgba(0,0,0,.35);}
-    .grid{ display:grid; gap:12px; margin-top:16px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));}
-    a.btn{
-      display:block; text-decoration:none; color:var(--text);
-      background:linear-gradient(180deg,var(--btn2),var(--btn));
-      border:1px solid rgba(255,255,255,.10);
-      padding:14px 14px; border-radius:14px;
-      transition:transform .06s ease, filter .12s ease;
-    }
-    a.btn:hover{ filter:brightness(1.06); transform:translateY(-1px);}
-    .kicker{ font-size:12px; color:var(--muted); margin-bottom:4px; text-transform:uppercase; letter-spacing:.8px;}
-    .title{ font-size:18px; font-weight:700; margin:0 0 6px;}
-    .desc{ margin:0; color:var(--muted); font-size:14px; line-height:1.35;}
-    .row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:10px;}
-    .toggle{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:10px 12px; border-radius:12px;
-      background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.10);
-      user-select:none;
-    }
-    .pill{ font-size:12px; padding:3px 8px; border-radius:999px; background:rgba(34,197,94,.15); color:var(--ok); border:1px solid rgba(34,197,94,.25);}
-    .pill.warn{ background:rgba(245,158,11,.12); color:var(--warn); border-color:rgba(245,158,11,.22);}
-    footer{ margin-top:18px; color:var(--muted); font-size:13px; line-height:1.4;}
-    code{ background:rgba(255,255,255,.08); padding:2px 6px; border-radius:8px;}
-    .teacher{ display:none; margin-top:12px;}
-    .teacher.show{ display:block;}
-    .small{ font-size:12px; color:var(--muted);}
-    .toplinks a{ color: var(--muted); text-decoration:none; }
-    .toplinks a:hover{ text-decoration:underline; }
-  </style>
+  <link rel="stylesheet" href="/assets/styles.css">
 </head>
 <body>
+  <script src="/assets/ui.js"></script>
+
   <div class="wrap">
-    <header>
+    <div class="bar">
       <div>
         <h1>WordMasters Practice</h1>
-        <p class="sub">Pick an activity. Everything here works online on your <code>.pages.dev</code> site.</p>
-        <p class="sub toplinks">
-          <a href="about.html">About</a> •
-          <a href="week1.html">Week 1</a> •
-          <a href="week2.html">Week 2</a> •
-          <a href="vocab_dropdown_story.html">Dropdown Story</a>
-        </p>
+        <p class="sub">High-quality vocabulary practice: dropdown story, quizzes, mixed review, and games.</p>
       </div>
-      <div class="row">
-        <label class="toggle">
-          <input id="teacherToggle" type="checkbox" />
-          <span><strong>Teacher mode</strong></span>
-          <span class="pill warn">optional</span>
-        </label>
+      <div class="actions">
+        <span class="pill" id="progressPill">Progress: 0%</span>
+        <button class="btn" onclick="resetProgress()">Reset progress</button>
       </div>
-    </header>
+    </div>
 
-    <div class="card">
+    <div class="card" style="margin-top:14px;">
       <div class="kicker">Start here</div>
       <div class="grid">
-
-        <a class="btn" href="vocab_dropdown_story.html">
-          <div class="kicker">Vocabulary</div>
+        <a class="linkCard" href="/vocab_dropdown_story.html">
           <div class="title">Dropdown Story</div>
-          <p class="desc">Fill blanks using dropdowns + check answers instantly.</p>
+          <p class="desc">Fill blanks with dropdowns + instant checking.</p>
         </a>
 
-        <a class="btn" href="week1.html">
-          <div class="kicker">Practice</div>
+        <a class="linkCard" href="/week1.html">
           <div class="title">Week 1 Quiz</div>
-          <p class="desc">Definitions + sentence choice practice (auto-check).</p>
+          <p class="desc">Match meanings + choose best word in context.</p>
         </a>
 
-        <a class="btn" href="week2.html">
-          <div class="kicker">Practice</div>
-          <div class="title">Week 2 Challenge</div>
-          <p class="desc">Use each word in a sentence + quick scoring.</p>
+        <a class="linkCard" href="/week2.html">
+          <div class="title">Week 2 Writing</div>
+          <p class="desc">Write strong sentences + smart checks + scoring rubric.</p>
         </a>
 
-        <a class="btn" href="about.html">
-          <div class="kicker">Info</div>
-          <div class="title">About / Instructions</div>
-          <p class="desc">How to use the site, plus tips for parents & students.</p>
+        <a class="linkCard" href="/mixed_review.html">
+          <div class="title">Mixed Review</div>
+          <p class="desc">Context clues, synonyms/antonyms, and tricky usage.</p>
         </a>
 
+        <a class="linkCard" href="/games.html">
+          <div class="title">Games</div>
+          <p class="desc">Timed sprint, matching game, and “spot the faux pas”.</p>
+        </a>
+
+        <a class="linkCard" href="/teacher/index.html">
+          <div class="title">Teacher Area</div>
+          <p class="desc">Password-protected answer keys, rubrics, and printables.</p>
+        </a>
       </div>
 
-      <div id="teacherBox" class="teacher">
-        <hr style="border:0;border-top:1px solid rgba(255,255,255,.10);margin:14px 0;">
-        <div class="kicker">Teacher mode</div>
-        <p class="desc">
-          Teacher mode shows answer guidance and reset tips. (Not password-protected.)
-        </p>
-        <div class="grid" style="margin-top:10px">
-          <a class="btn" href="week1.html#teacher">
-            <div class="kicker">Hints</div>
-            <div class="title">Week 1 Answer Guidance</div>
-            <p class="desc">Scroll to teacher section automatically.</p>
-          </a>
-
-          <a class="btn" href="week2.html#teacher">
-            <div class="kicker">Rubric</div>
-            <div class="title">Week 2 Scoring Rubric</div>
-            <p class="desc">Quick rubric for sentence quality.</p>
-          </a>
-        </div>
-
-        <p class="small" style="margin-top:10px">
-          Tip: Use Teacher mode on your device; students can use normal mode.
-        </p>
-      </div>
-
-      <footer>
-        <strong>Add more pages:</strong> create <code>week3.html</code>, then add another button here.
-      </footer>
+      <hr>
+      <p class="small">
+        Tip: This site saves progress in your browser (no sign-in needed). Teacher pages are password protected at the server level.
+      </p>
     </div>
   </div>
 
-  <script>
-    const toggle = document.getElementById('teacherToggle');
-    const box = document.getElementById('teacherBox');
-    toggle.addEventListener('change', () => {
-      box.classList.toggle('show', toggle.checked);
-      localStorage.setItem('teacherMode', toggle.checked ? '1' : '0');
-    });
-    if (localStorage.getItem('teacherMode') === '1') {
-      toggle.checked = true;
-      box.classList.add('show');
-    }
-  </script>
+<script>
+const KEY = "wm_progress_v1";
+function getProgress(){
+  try{ return JSON.parse(localStorage.getItem(KEY) || "{}"); }catch(e){ return {}; }
+}
+function setProgress(p){ localStorage.setItem(KEY, JSON.stringify(p)); }
+function calcPct(p){
+  const items = ["story","week1","week2","mixed","games"];
+  let done = 0;
+  for(const k of items){ if(p[k]) done++; }
+  return Math.round((done/items.length)*100);
+}
+function refresh(){
+  const p = getProgress();
+  document.getElementById("progressPill").textContent = `Progress: ${calcPct(p)}%`;
+}
+function resetProgress(){
+  setProgress({});
+  refresh();
+  alert("Progress reset.");
+}
+refresh();
+</script>
 </body>
 </html>
