@@ -1,106 +1,55 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Teacher Mode • Dashboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Teacher Mode</title>
   <link rel="stylesheet" href="/assets/styles.css">
-  <style>
-    .teacherBanner{
-      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
-      background: rgba(255, 196, 0, .10);
-      border: 1px solid rgba(255, 196, 0, .28);
-      border-radius: 14px;
-      padding: 12px 14px;
-      margin-top: 14px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.18);
-    }
-    .teacherBanner .left{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-    .badge{
-      display:inline-block;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(255, 196, 0, .14);
-      border: 1px solid rgba(255, 196, 0, .30);
-      font-weight: 900;
-      letter-spacing: .2px;
-    }
-    .smallNote{ color: var(--muted); font-size: 13px; }
-    .dangerBtn{
-      background: linear-gradient(180deg, rgba(239,68,68,.55), rgba(239,68,68,.35));
-      border: 1px solid rgba(239,68,68,.40);
-    }
-  </style>
 </head>
 <body>
-  <script src="/assets/ui.js"></script>
 
-  <div class="wrap">
-    <div class="bar">
-      <div>
-        <h1>Teacher Mode</h1>
-        <p class="sub">Private dashboard (password required). Answer keys, reveal buttons, and printables.</p>
-      </div>
-      <div class="actions">
-        <a class="pill" href="/index.html">Student Home</a>
-        <a class="pill" href="/teacher/answer_keys.html">Answer Keys</a>
-        <a class="pill" href="/teacher/reveal.html">Reveal</a>
-        <button class="btn dangerBtn" onclick="logout()">Log out</button>
-      </div>
-    </div>
-
-    <div class="teacherBanner">
-      <div class="left">
-        <span class="badge">🔒 TEACHER MODE ACTIVE</span>
-        <span class="smallNote">If you can see this page, the password lock is working.</span>
-      </div>
-      <button class="btn" onclick="howToChange()">Change password</button>
-    </div>
-
-    <div class="card" style="margin-top:14px;">
-      <div class="kicker">Teacher tools</div>
-      <div class="grid">
-        <a class="linkCard" href="/teacher/answer_keys.html">
-          <div class="title">Answer Keys + Explanations</div>
-          <p class="desc">Full keys for Dropdown Story + Week 1 + more.</p>
-        </a>
-
-        <a class="linkCard" href="/teacher/reveal.html">
-          <div class="title">Reveal Answers</div>
-          <p class="desc">Teacher-only “Show Answers / Hide Answers” coaching view.</p>
-        </a>
-
-        <a class="linkCard" href="/index.html">
-          <div class="title">Back to Student Home</div>
-          <p class="desc">See what students see (use Incognito for the cleanest test).</p>
-        </a>
-
-        <a class="linkCard" href="/about.html">
-          <div class="title">How the site works</div>
-          <p class="desc">Instructions + troubleshooting tips.</p>
-        </a>
-      </div>
-
-      <hr>
-      <p class="small">
-        Note: “Teacher mode” is a protected folder. The browser remembers login until you log out or close the browser.
-      </p>
+<div class="wrap">
+  <div class="bar">
+    <h1>Teacher Mode</h1>
+    <div class="actions">
+      <a class="pill" href="/index.html">Student Home</a>
+      <a class="pill" href="/teacher/answer_keys.html">Answer Keys</a>
+      <a class="pill" href="/teacher/reveal.html">Reveal</a>
+      <button class="btn dangerBtn" onclick="logout()">Log out</button>
     </div>
   </div>
 
-  <script>
-    function howToChange(){
-      alert("To change the teacher login: Cloudflare Pages → Settings → Variables & secrets → edit BASIC_USER/BASIC_PASS → Redeploy latest.");
-    }
+  <div class="card">
+    <h2>🔒 Teacher Access</h2>
+    <p>
+      You are in the <b>teacher-only section</b>.
+      Students cannot see this content.
+    </p>
 
-    function logout() {
-      // Force the browser to forget HTTP Basic Auth credentials
-      const loc = window.location;
-      window.location.href = loc.protocol + "//logout:logout@" + loc.host + "/teacher/";
-      // Then bounce back to student home
-      setTimeout(() => { window.location.href = "/index.html"; }, 500);
-    }
-  </script>
+    <ul>
+      <li>View full answer keys</li>
+      <li>Reveal answers while teaching</li>
+      <li>Print solutions</li>
+      <li>Return safely to student view</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+function logout() {
+  const host = location.host;
+
+  // Clear stored Basic Auth credentials
+  location.href = "https://logout:logout@" + host + "/teacher/";
+
+  // Always send to student homepage
+  setTimeout(() => {
+    location.replace("/index.html");
+  }, 700);
+}
+</script>
+
 </body>
 </html>
+
 
