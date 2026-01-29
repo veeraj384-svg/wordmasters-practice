@@ -22,10 +22,10 @@
       border-radius: 999px;
       background: rgba(255, 196, 0, .14);
       border: 1px solid rgba(255, 196, 0, .30);
-      font-weight: 800;
+      font-weight: 900;
       letter-spacing: .2px;
     }
-    .teacherBanner .smallNote{ color: var(--muted); font-size: 13px; }
+    .smallNote{ color: var(--muted); font-size: 13px; }
     .dangerBtn{
       background: linear-gradient(180deg, rgba(239,68,68,.55), rgba(239,68,68,.35));
       border: 1px solid rgba(239,68,68,.40);
@@ -39,58 +39,68 @@
     <div class="bar">
       <div>
         <h1>Teacher Mode</h1>
-        <p class="sub">Private dashboard (password required). Use this to reveal answers, print keys, and manage practice.</p>
+        <p class="sub">Private dashboard (password required). Answer keys, reveal buttons, and printables.</p>
       </div>
       <div class="actions">
         <a class="pill" href="/index.html">Student Home</a>
         <a class="pill" href="/teacher/answer_keys.html">Answer Keys</a>
+        <a class="pill" href="/teacher/reveal.html">Reveal</a>
+        <button class="btn dangerBtn" onclick="logout()">Log out</button>
       </div>
     </div>
 
     <div class="teacherBanner">
       <div class="left">
         <span class="badge">🔒 TEACHER MODE ACTIVE</span>
-        <span class="smallNote">If you can see this page, your login is working correctly.</span>
+        <span class="smallNote">If you can see this page, the password lock is working.</span>
       </div>
-      <button class="btn dangerBtn" onclick="lockDownReminder()">Change password later</button>
+      <button class="btn" onclick="howToChange()">Change password</button>
     </div>
 
     <div class="card" style="margin-top:14px;">
       <div class="kicker">Teacher tools</div>
-
       <div class="grid">
         <a class="linkCard" href="/teacher/answer_keys.html">
           <div class="title">Answer Keys + Explanations</div>
-          <p class="desc">Full keys for Week 1, Mixed Review, Games—plus explanations and common mistakes.</p>
+          <p class="desc">Full keys for Dropdown Story + Week 1 + more.</p>
         </a>
 
         <a class="linkCard" href="/teacher/reveal.html">
-          <div class="title">Reveal Answers (Teacher View)</div>
-          <p class="desc">Open teacher versions of student pages with “Show Answers” buttons.</p>
+          <div class="title">Reveal Answers</div>
+          <p class="desc">Teacher-only “Show Answers / Hide Answers” coaching view.</p>
         </a>
 
-        <a class="linkCard" href="/teacher/printables.html">
-          <div class="title">Printables</div>
-          <p class="desc">Printable keys and practice sheets (clean print layout).</p>
+        <a class="linkCard" href="/index.html">
+          <div class="title">Back to Student Home</div>
+          <p class="desc">See what students see (use Incognito for the cleanest test).</p>
         </a>
 
-        <a class="linkCard" href="/teacher/settings.html">
-          <div class="title">Teacher Settings</div>
-          <p class="desc">Quick instructions: rotate password, update content, and troubleshoot.</p>
+        <a class="linkCard" href="/about.html">
+          <div class="title">How the site works</div>
+          <p class="desc">Instructions + troubleshooting tips.</p>
         </a>
       </div>
 
       <hr>
       <p class="small">
-        Note: Students cannot reach this area without the password because Cloudflare blocks it server-side.
+        Note: “Teacher mode” is a protected folder. The browser remembers login until you log out or close the browser.
       </p>
     </div>
   </div>
 
-<script>
-function lockDownReminder(){
-  alert("To change the teacher password: Cloudflare Pages → Settings → Variables & secrets → edit BASIC_USER/BASIC_PASS → Redeploy latest.");
-}
-</script>
+  <script>
+    function howToChange(){
+      alert("To change the teacher login: Cloudflare Pages → Settings → Variables & secrets → edit BASIC_USER/BASIC_PASS → Redeploy latest.");
+    }
+
+    function logout() {
+      // Force the browser to forget HTTP Basic Auth credentials
+      const loc = window.location;
+      window.location.href = loc.protocol + "//logout:logout@" + loc.host + "/teacher/";
+      // Then bounce back to student home
+      setTimeout(() => { window.location.href = "/index.html"; }, 500);
+    }
+  </script>
 </body>
 </html>
+
