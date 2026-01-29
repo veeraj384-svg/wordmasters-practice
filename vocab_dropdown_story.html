@@ -1,14 +1,156 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dropdown Story</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vocabulary Dropdown Story</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 950px; margin: 28px auto; padding: 0 14px; line-height: 1.7; }
+  h1 { margin-bottom: 6px; }
+  .sub { color:#444; margin-top:0; }
+  .bar { display:flex; gap:10px; flex-wrap:wrap; margin: 14px 0 18px; }
+  button { padding: 9px 14px; font-size: 15px; cursor:pointer; }
+  select { margin: 0 4px; padding: 4px; }
+  .note { color:#555; font-size: 14px; }
+  .pill { display:inline-block; padding:2px 8px; border-radius: 999px; background:#f2f2f2; font-size:12px; }
+  .ok { background:#d7f7d7; }
+  .bad { background:#ffd6d6; }
+  a { color:#1a4; text-decoration:none; }
+  a:hover { text-decoration:underline; }
+</style>
 </head>
-<body style="font-family:system-ui; padding:20px;">
-  <h1>Dropdown Story</h1>
-  <p>This page is working ✅</p>
-  <p>Next step: paste your dropdown story code here.</p>
-  <p><a href="index.html">⬅ Back to Home</a></p>
+<body>
+
+<h1>Dropdown Story</h1>
+<p class="sub">Fill each blank using the dropdown. Then click <strong>Check Answers</strong>.</p>
+
+<div class="bar">
+  <button onclick="checkAnswers()">Check Answers</button>
+  <button onclick="resetAll()">Reset</button>
+  <span id="score" class="pill">Score: 0 / 25</span>
+  <a href="index.html" class="pill">⬅ Home</a>
+</div>
+
+<p>
+Ruling the kingdom required great
+<select data-answer="stamina"></select>,
+but the ruler often tried to
+<select data-answer="evade"></select>
+responsibility. His plans sounded
+<select data-answer="sketchy"></select>,
+and many feared he had become a true
+<select data-answer="tyrant"></select>.
+Rather than lead, he chose to
+<select data-answer="shirk"></select>
+his duties while continuing to
+<select data-answer="domineer"></select>
+over others.
+</p>
+
+<p>
+Life in the palace had grown
+<select data-answer="mundane"></select>,
+and the ruler’s
+<select data-answer="disposition"></select>
+grew increasingly harsh. Officials would
+<select data-answer="bicker"></select>
+over small issues, often ignoring basic
+<select data-answer="etiquette"></select>
+and committing a serious
+<select data-answer="faux pas"></select>.
+</p>
+
+<p>
+A calm and
+<select data-answer="amicable"></select>
+traveler arrived to test the ruler’s
+<select data-answer="mettle"></select>.
+He urged the king to
+<select data-answer="enact"></select>
+fair laws and
+<select data-answer="establish"></select>
+justice through
+<select data-answer="rigorous"></select>
+debate rather than force.
+</p>
+
+<p>
+The argument soon
+<select data-answer="peaked"></select>.
+Some advisors would
+<select data-answer="snicker"></select>,
+while others gave a quiet
+<select data-answer="sneer"></select>.
+The discussions became a constant
+<select data-answer="wrangle"></select>,
+as the guards, once
+<select data-answer="lax"></select>,
+now stood alert.
+</p>
+
+<p>
+By the end, the ruler looked
+<select data-answer="haggard"></select>,
+standing at the
+<select data-answer="threshold"></select>
+of losing power. Parts of the palace had become
+<select data-answer="derelict"></select>,
+and the king finally realized leadership is not something to
+<select data-answer="refuse"></select>.
+</p>
+
+<p class="note">
+Tip: If you want a harder version later, I can make it so each word can be used only once.
+</p>
+
+<script>
+const words = [
+  "stamina","evade","sketchy","tyrant","shirk","amicable","mettle","domineer","mundane",
+  "disposition","enact","peaked","refuse","establish","lax","threshold","sneer","rigorous",
+  "etiquette","bicker","derelict","faux pas","snicker","haggard","wrangle"
+];
+
+function populateDropdowns() {
+  document.querySelectorAll("select").forEach(select => {
+    select.innerHTML = "";
+    const blank = document.createElement("option");
+    blank.text = "— choose —";
+    blank.value = "";
+    select.appendChild(blank);
+
+    words.forEach(word => {
+      const opt = document.createElement("option");
+      opt.value = word;
+      opt.text = word;
+      select.appendChild(opt);
+    });
+  });
+}
+
+function checkAnswers() {
+  let correct = 0;
+  document.querySelectorAll("select").forEach(select => {
+    const ok = (select.value === select.dataset.answer);
+    select.classList.remove("ok","bad");
+    if (!select.value) {
+      select.classList.add("bad");
+    } else if (ok) {
+      select.classList.add("ok");
+      correct++;
+    } else {
+      select.classList.add("bad");
+    }
+  });
+  document.getElementById("score").textContent = `Score: ${correct} / 25`;
+}
+
+function resetAll() {
+  document.querySelectorAll("select").forEach(s => { s.value = ""; s.classList.remove("ok","bad"); });
+  document.getElementById("score").textContent = "Score: 0 / 25";
+}
+
+populateDropdowns();
+</script>
+
 </body>
 </html>
