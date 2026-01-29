@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Teacher Mode • Reveal Answers</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+  <style>
+    .teacherBanner{
+      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      background: rgba(255, 196, 0, .10);
+      border: 1px solid rgba(255, 196, 0, .28);
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-top: 14px;
+    }
+    .badge{
+      display:inline-block; padding:6px 10px; border-radius:999px;
+      background: rgba(255, 196, 0, .14);
+      border: 1px solid rgba(255, 196, 0, .30);
+      font-weight: 900;
+    }
+    .hint{ color: var(--muted); font-size: 13px; }
+    .ans{
+      display:none;
+      margin-top:10px;
+      padding:10px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+    }
+    .show .ans{ display:block; }
+  </style>
+</head>
+<body>
+  <script src="/assets/ui.js"></script>
+
+  <div class="wrap">
+    <div class="bar">
+      <div>
+        <h1>Reveal Answers</h1>
+        <p class="sub">Teacher-only page. Click “Show Answers” to display keys while coaching.</p>
+      </div>
+      <div class="actions">
+        <a class="pill" href="/teacher/index.html">Teacher Dashboard</a>
+        <a class="pill" href="/index.html">Student Home</a>
+      </div>
+    </div>
+
+    <div class="teacherBanner">
+      <div class="badge">🔒 Teacher Mode</div>
+      <div class="hint">Students cannot open this page without the password.</div>
+      <button class="btn" onclick="toggleAll()">Show Answers</button>
+    </div>
+
+    <div class="card" style="margin-top:14px;">
+      <div class="kicker">Week 1 — Part 2 key</div>
+
+      <div class="q item">
+        <div style="font-weight:900;">1) The council voted to ________ a new rule.</div>
+        <div class="ans"><b>Answer:</b> enact — make a law/rule official.</div>
+      </div>
+      <div class="q item">
+        <div style="font-weight:900;">2) We should ________ a routine for homework.</div>
+        <div class="ans"><b>Answer:</b> establish — set up a system/routine.</div>
+      </div>
+      <div class="q item">
+        <div style="font-weight:900;">3) The coach demanded a ________ plan.</div>
+        <div class="ans"><b>Answer:</b> rigorous — strict/careful/demanding.</div>
+      </div>
+      <div class="q item">
+        <div style="font-weight:900;">4) The applause ________ when the winner arrived.</div>
+        <div class="ans"><b>Answer:</b> peaked — reached the highest point.</div>
+      </div>
+      <div class="q item">
+        <div style="font-weight:900;">5) The rules were too ________.</div>
+        <div class="ans"><b>Answer:</b> lax — not strict enough.</div>
+      </div>
+      <div class="q item">
+        <div style="font-weight:900;">6) She paused at the ________ of the door.</div>
+        <div class="ans"><b>Answer:</b> threshold — doorway/beginning point.</div>
+      </div>
+      <div class="q item">
+        <div style="font-weight:900;">7) He answered with a ________.</div>
+        <div class="ans"><b>Answer:</b> sneer — scornful look/response.</div>
+      </div>
+      <div class="q item">
+        <div style="font-weight:900;">8) They tried not to ________.</div>
+        <div class="ans"><b>Answer:</b> snicker — quiet rude laugh.</div>
+      </div>
+      <div class="q item">
+        <div style="font-weight:900;">9) The siblings began to ________.</div>
+        <div class="ans"><b>Answer:</b> bicker — argue about small things.</div>
+      </div>
+      <div class="q item">
+        <div style="font-weight:900;">10) Good email ________ matters.</div>
+        <div class="ans"><b>Answer:</b> etiquette — polite behavior rules.</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px;">
+      <div class="kicker">Dropdown Story key (quick)</div>
+      <div class="q item">
+        <div style="font-weight:900;">All 25 correct words</div>
+        <div class="ans">
+          stamina, evade, sketchy, tyrant, shirk, domineer, mundane, disposition, bicker, etiquette,
+          faux pas, amicable, mettle, enact, establish, rigorous, peaked, snicker, sneer, wrangle,
+          lax, haggard, threshold, derelict, refuse
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+let showing=false;
+function toggleAll(){
+  showing=!showing;
+  document.querySelectorAll(".item").forEach(x=>x.classList.toggle("show", showing));
+  document.querySelector(".teacherBanner .btn").textContent = showing ? "Hide Answers" : "Show Answers";
+}
+</script>
+</body>
+</html>
