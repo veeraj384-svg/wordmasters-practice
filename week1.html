@@ -4,83 +4,39 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Week 1 Quiz</title>
-<style>
-  :root{
-    --bg:#0b1020; --card:#111a33; --text:#eaf0ff; --muted:#b7c3ff;
-    --btn:#1f2f63; --btn2:#243a7a; --line:rgba(255,255,255,.10);
-    --okbg: rgba(34,197,94,.18); --okbd: rgba(34,197,94,.35);
-    --badbg: rgba(239,68,68,.18); --badbd: rgba(239,68,68,.35);
-  }
-  body{ margin:0; font-family:system-ui,Segoe UI,Arial; background:linear-gradient(180deg,var(--bg),#070a14); color:var(--text); }
-  .wrap{ max-width:980px; margin:0 auto; padding:26px 16px 44px; }
-  .top{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap; }
-  h1{ margin:0; font-size:28px; letter-spacing:.2px;}
-  .sub{ margin:6px 0 0; color:var(--muted); line-height:1.35}
-  .card{ background:rgba(17,26,51,.88); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:16px; box-shadow:0 10px 30px rgba(0,0,0,.35); margin-top:14px; }
-  .bar{ display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 6px; align-items:center; }
-  .btn{
-    appearance:none; border:1px solid rgba(255,255,255,.10); color:var(--text);
-    background:linear-gradient(180deg,var(--btn2),var(--btn));
-    padding:10px 14px; border-radius:14px; cursor:pointer;
-    transition:transform .06s ease, filter .12s ease;
-    font-size:14px;
-  }
-  .btn:hover{ filter:brightness(1.06); transform:translateY(-1px);}
-  .pill{ display:inline-block; padding:5px 10px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid var(--line); color:var(--muted); font-size:12px; }
-  a.pill{ text-decoration:none; }
-  a.pill:hover{ text-decoration:underline; }
-  .kicker{ font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.8px; margin-bottom:10px; }
-  .q{ border:1px solid var(--line); border-radius:14px; padding:12px; margin:10px 0; background:rgba(255,255,255,.03); }
-  .q h3{ margin:0 0 8px; font-size:15px; }
-  select{
-    width:min(820px,100%);
-    background:rgba(255,255,255,.06);
-    color:var(--text);
-    border:1px solid var(--line);
-    border-radius:12px;
-    padding:10px 10px;
-  }
-  option{ color:#0b1020; }
-  select.ok{ background:var(--okbg); border-color:var(--okbd); }
-  select.bad{ background:var(--badbg); border-color:var(--badbd); }
-  .sectionTitle{ font-size:18px; margin:0 0 6px; }
-  .muted{ color:var(--muted); }
-  .teacher{ margin-top:14px; border-left:4px solid rgba(255,255,255,.18); padding-left:12px; }
-</style>
+<link rel="stylesheet" href="/assets/styles.css">
 </head>
 <body>
+<script src="/assets/ui.js"></script>
+
 <div class="wrap">
-  <div class="top">
+  <div class="bar">
     <div>
       <h1>Week 1 Quiz</h1>
-      <p class="sub">Match meanings + choose the best word for each sentence.</p>
+      <p class="sub">Match meanings + choose the best word in context.</p>
     </div>
-    <div class="bar">
-      <a class="pill" href="index.html">⬅ Home</a>
+    <div class="actions">
       <span id="score" class="pill">Score: 0 / 20</span>
       <button class="btn" onclick="check()">Check</button>
       <button class="btn" onclick="resetAll()">Reset</button>
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" style="margin-top:14px;">
     <div class="kicker">Part 1 — Match the meaning</div>
     <div id="part1"></div>
   </div>
 
-  <div class="card">
+  <div class="card" style="margin-top:14px;">
     <div class="kicker">Part 2 — Best word in the sentence</div>
     <div id="part2"></div>
-
-    <div class="teacher" id="teacher">
-      <div class="kicker">Teacher mode guidance</div>
-      <p class="muted">Scoring idea: +1 each. Ask the student to explain why the correct word fits the context.</p>
-    </div>
   </div>
 </div>
 
 <script>
-const part1Items = [
+const KEY="wm_progress_v1";
+
+const part1 = [
   {w:"stamina", a:"strength to keep going for a long time"},
   {w:"evade", a:"avoid or escape (a duty, question, or danger)"},
   {w:"sketchy", a:"doubtful; not trustworthy; suspicious"},
@@ -93,23 +49,23 @@ const part1Items = [
   {w:"disposition", a:"a person’s usual mood or attitude"}
 ];
 
-const part2Items = [
-  {a:"enact", prompt:"The council voted to ________ a new rule about recycling in the city."},
-  {a:"establish", prompt:"We need to ________ a clear routine for homework and reading."},
-  {a:"rigorous", prompt:"Her training plan was ________—it pushed her every day."},
-  {a:"peaked", prompt:"The storm ________ at midnight and then slowly weakened."},
-  {a:"lax", prompt:"Security was too ________, so anyone could walk in."},
-  {a:"threshold", prompt:"He stood at the ________ of the doorway, unsure whether to enter."},
-  {a:"sneer", prompt:"He gave a ________ when he heard the silly excuse."},
-  {a:"snicker", prompt:"The kids tried not to ________ during the serious assembly."},
-  {a:"bicker", prompt:"They began to ________ about whose turn it was to clean up."},
-  {a:"etiquette", prompt:"Good table ________ means saying ‘please’ and ‘thank you’."}
+const p2Items = [
+  {a:"enact", prompt:"The council voted to ________ a new rule about recycling."},
+  {a:"establish", prompt:"We should ________ a routine so homework happens at the same time daily."},
+  {a:"rigorous", prompt:"The coach demanded a ________ practice schedule with no shortcuts."},
+  {a:"peaked", prompt:"The applause ________ when the winner walked on stage."},
+  {a:"lax", prompt:"The museum’s rules were too ________, so people touched the paintings."},
+  {a:"threshold", prompt:"She paused at the ________ of the classroom before speaking."},
+  {a:"sneer", prompt:"He answered with a ________ that showed he thought the idea was silly."},
+  {a:"snicker", prompt:"They tried not to ________ during the quiet reading time."},
+  {a:"bicker", prompt:"The siblings began to ________ about who would sit by the window."},
+  {a:"etiquette", prompt:"Good email ________ includes a greeting and a polite closing."}
 ];
 
-const part2Options = ["enact","establish","rigorous","peaked","lax","threshold","sneer","snicker","bicker","etiquette"];
+const p2Options = ["enact","establish","rigorous","peaked","lax","threshold","sneer","snicker","bicker","etiquette"];
 
-function shuffle(arr){
-  const a=[...arr];
+function shuffle(a){
+  a=[...a];
   for(let i=a.length-1;i>0;i--){
     const j=Math.floor(Math.random()*(i+1));
     [a[i],a[j]]=[a[j],a[i]];
@@ -118,54 +74,57 @@ function shuffle(arr){
 }
 
 function render(){
-  const defsShuffled = shuffle(part1Items.map(x=>x.a));
-  const p1 = document.getElementById("part1");
-  p1.innerHTML = "";
-  part1Items.forEach((item, idx) => {
-    const box = document.createElement("div");
-    box.className = "q";
-    box.innerHTML = `
-      <h3>${idx+1}. <strong>${item.w}</strong> means…</h3>
-      <select data-answer="${item.a}">
+  const defs = shuffle(part1.map(x=>x.a));
+  const p1Root = document.getElementById("part1");
+  p1Root.innerHTML="";
+  part1.forEach((it, i)=>{
+    const div=document.createElement("div");
+    div.className="q";
+    div.innerHTML = `
+      <div class="kicker">Question ${i+1}</div>
+      <div style="font-weight:800; margin-bottom:8px;">${it.w}</div>
+      <select data-answer="${it.a}">
         <option value="">— choose —</option>
-        ${defsShuffled.map(d=>`<option value="${d}">${d}</option>`).join("")}
+        ${defs.map(d=>`<option value="${d}">${d}</option>`).join("")}
       </select>
     `;
-    p1.appendChild(box);
+    p1Root.appendChild(div);
   });
 
-  const p2 = document.getElementById("part2");
-  p2.innerHTML = "";
-  part2Items.forEach((item, idx) => {
-    const box = document.createElement("div");
-    box.className = "q";
-    box.innerHTML = `
-      <h3>${idx+1}. ${item.prompt}</h3>
-      <select data-answer="${item.a}">
+  const p2Root = document.getElementById("part2");
+  p2Root.innerHTML="";
+  p2Items.forEach((it, i)=>{
+    const div=document.createElement("div");
+    div.className="q";
+    div.innerHTML = `
+      <div class="kicker">Question ${i+1}</div>
+      <div style="font-weight:800; margin-bottom:8px;">${it.prompt}</div>
+      <select data-answer="${it.a}">
         <option value="">— choose —</option>
-        ${part2Options.map(w=>`<option value="${w}">${w}</option>`).join("")}
+        ${p2Options.map(w=>`<option value="${w}">${w}</option>`).join("")}
       </select>
     `;
-    p2.appendChild(box);
+    p2Root.appendChild(div);
   });
 }
 
 function check(){
-  let correct = 0;
+  let correct=0;
   document.querySelectorAll("select").forEach(sel=>{
     sel.classList.remove("ok","bad");
     const ok = sel.value === sel.dataset.answer;
     if(ok){ sel.classList.add("ok"); correct++; }
-    else { sel.classList.add("bad"); }
+    else sel.classList.add("bad");
   });
   document.getElementById("score").textContent = `Score: ${correct} / 20`;
+
+  const p = JSON.parse(localStorage.getItem(KEY) || "{}");
+  p.week1 = (correct >= 18); // premium “pass” threshold
+  localStorage.setItem(KEY, JSON.stringify(p));
 }
 
 function resetAll(){
-  document.querySelectorAll("select").forEach(sel=>{
-    sel.value="";
-    sel.classList.remove("ok","bad");
-  });
+  document.querySelectorAll("select").forEach(sel=>{ sel.value=""; sel.classList.remove("ok","bad"); });
   document.getElementById("score").textContent = "Score: 0 / 20";
 }
 
