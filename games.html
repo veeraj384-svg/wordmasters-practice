@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Games</title>
+<link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+<script src="/assets/ui.js"></script>
+
+<div class="wrap">
+  <div class="bar">
+    <div>
+      <h1>Games</h1>
+      <p class="sub">Quick, fun practice. These are real games with scoring.</p>
+    </div>
+    <div class="actions">
+      <span id="pill" class="pill">Ready</span>
+      <button class="btn" onclick="start()">Start 60s Sprint</button>
+      <button class="btn" onclick="resetAll()">Reset</button>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px;">
+    <div class="kicker">Game 1 — 60-second Sprint (best word)</div>
+    <div id="sprint"></div>
+  </div>
+
+  <div class="card" style="margin-top:14px;">
+    <div class="kicker">Game 2 — Spot the Faux Pas</div>
+    <p class="small">Choose the sentence that contains the faux pas (social mistake).</p>
+    <div id="faux"></div>
+  </div>
+</div>
+
+<script>
+const KEY="wm_progress_v1";
+let timer=null;
+let timeLeft=0;
+
+const sprintQs = [
+  {ans:"stamina", q:"Running a marathon takes ________."},
+  {ans:"tyrant", q:"A ruler who punishes people unfairly is a ________."},
+  {ans:"evade", q:"To avoid answering directly is to ________ the question."},
+  {ans:"mettle", q:"Courage shown in a hard situation is ________."},
+  {ans:"mundane", q:"A boring, ordinary routine is ________."},
+  {ans:"domineer", q:"To boss people around is to ________."},
+  {ans:"rigorous", q:"A very strict, careful training plan is ________."},
+  {ans:"derelict", q:"An abandoned building is ________."},
+  {ans:"bicker", q:"Argue about small things = ________."},
+  {ans:"etiquette", q:"Rules for polite behavior = ________."},
+  {ans:"snicker", q:"A quiet, rude laugh = ________."},
+  {ans:"sneer", q:"A facial expression showing scorn = ________."}
+];
+
+const sprintOpts = [
+  "stamina","tyrant","evade","mettle","mundane","domineer","rigorous","derelict","bicker","etiquette","snicker","sneer",
+  "lax","threshold","amicable","sketchy","wrangle","refuse","haggard","shirk","peaked","disposition","enact","establish"
+];
+
+const fauxQs = [
+  {
+    a:"He waited for everyone to sit down before he started eating.",
+    b:"He grabbed food from someone else’s plate without asking and laughed.",
+    ans:"b"
+  },
+  {
+    a:"She thanked the host and helped clean up after dinner.",
+    b:"She rolled her eyes at the gift and said it was ‘kinda lame.’",
+    ans:"b"
+  },
+  {
+    a:"He listened quietly while the teacher explained the directions.",
+    b:"He interrupted every sentence and yelled ‘I already know!’",
+    ans:"b"
+  },
+  {
+    a:"She held the door for the person behind her.",
+    b:"She cut in line and said, ‘Move, I’m late,’ to everyone.",
+    ans:"b"
+  }
+];
+
+function render(){
+  const s=document.getElementById("sprint");
+  s.innerHTML="";
+  sprintQs.forEach((it,i)=>{
+    const div=document.createElement("div");
+    div.className="q";
+    div.innerHTML=`
+      <div class="kicker">Sprint ${i+1}</div>
+      <div style="font-weight:800;margin-bottom:8px;">${it.q}</div>
+      <select data-ans="${it.ans}">
+        <option value="">— choose —</option>
+        ${sprintOpts.map(x=>`<option value="${x}">${x}</option>`).join("")}
+      </select>
+    `;
+    s.appendChild(div);
+  });
+
+  const f=document.getElementById("faux");
+  f.innerHTML="";
+  fauxQs.forEach((it,i)=>{
+    const div=document.createElement("div");
+    div.className="q";
+    div.innerHTML=`
+      <div class="kicker">Faux Pas ${i+1}</div>
+      <div style="display:grid; gap:10px;">
+        <label class="pill" style="cursor:pointer;">
+          <input type="radio" name="fp_${i}" value="a"> A) ${it.a}
+        </label>
+        <label class="pill" style="cursor:pointer;">
+          <input type="radio" name="fp_${i}" value="b"> B) ${it.b}
+        </label>
+      </div>
+    `;
+    f.appendChild(div);
+  });
+}
+
+function start(){
+  if(timer) return;
+  timeLeft=60;
+  document.getElementById("pill").textContent = `Sprint: ${timeLeft}s`;
+  timer=setInterval(()=>{
+    timeLeft--;
+    document.getElementById("pill").textContent = `Sprint: ${timeLeft}s`;
+    if(timeLeft<=0){
+      clearInterval(timer); timer=null;
+      grade();
+    }
+  },1000);
+}
+
+function grade(){
+  let sprintCorrect=0;
+  document.querySelectorAll("#sprint select").forEach(sel=>{
+    sel.classList.remove("ok","bad");
+    const ok = sel.value === sel.dataset.ans;
+    if(ok){ sel.classList.add("ok"); sprintCorrect++; }
+    else sel.classList.add("bad");
+  });
+
+  let fauxCorrect=0;
+  fauxQs.forEach((it,i)=>{
+    const pick = document.querySelector(`input[name="fp_${i}"]:checked`);
+    const ok = pick && pick.value === it.ans;
+    fauxCorrect += ok ? 1 : 0;
+  });
+
+  const total = sprintCorrect + fauxCorrect;
+  document.getElementById("pill").textContent = `Done • Score ${total} (Sprint ${sprintCorrect}/12, Faux ${fauxCorrect}/4)`;
+
+  const p = JSON.parse(localStorage.getItem(KEY) || "{}");
+  p.games = (total >= 14);
+  localStorage.setItem(KEY, JSON.stringify(p));
+}
+
+function resetAll(){
+  if(timer){ clearInterval(timer); timer=null; }
+  document.getElementById("pill").textContent="Ready";
+  document.querySelectorAll("#sprint select").forEach(sel=>{ sel.value=""; sel.classList.remove("ok","bad"); });
+  document.querySelectorAll(`#faux input[type="radio"]`).forEach(r=>{ r.checked=false; });
+}
+
+render();
+</script>
+</body>
+</html>
