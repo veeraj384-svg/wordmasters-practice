@@ -3,142 +3,122 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Week 2 Challenge</title>
-<style>
-  :root{
-    --bg:#0b1020; --card:#111a33; --text:#eaf0ff; --muted:#b7c3ff;
-    --btn:#1f2f63; --btn2:#243a7a; --line:rgba(255,255,255,.10);
-    --okbg: rgba(34,197,94,.18); --okbd: rgba(34,197,94,.35);
-    --badbg: rgba(239,68,68,.18); --badbd: rgba(239,68,68,.35);
-  }
-  body{ margin:0; font-family:system-ui,Segoe UI,Arial; background:linear-gradient(180deg,var(--bg),#070a14); color:var(--text); }
-  .wrap{ max-width:980px; margin:0 auto; padding:26px 16px 44px; }
-  .top{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap; }
-  h1{ margin:0; font-size:28px; letter-spacing:.2px;}
-  .sub{ margin:6px 0 0; color:var(--muted); line-height:1.35}
-  .card{ background:rgba(17,26,51,.88); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:16px; box-shadow:0 10px 30px rgba(0,0,0,.35); margin-top:14px; }
-  .bar{ display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 6px; align-items:center; }
-  .btn{
-    appearance:none; border:1px solid rgba(255,255,255,.10); color:var(--text);
-    background:linear-gradient(180deg,var(--btn2),var(--btn));
-    padding:10px 14px; border-radius:14px; cursor:pointer;
-    transition:transform .06s ease, filter .12s ease;
-    font-size:14px;
-  }
-  .btn:hover{ filter:brightness(1.06); transform:translateY(-1px);}
-  .pill{ display:inline-block; padding:5px 10px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid var(--line); color:var(--muted); font-size:12px; }
-  a.pill{ text-decoration:none; }
-  a.pill:hover{ text-decoration:underline; }
-  .kicker{ font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.8px; margin-bottom:10px; }
-  .row{ border:1px solid var(--line); border-radius:14px; padding:12px; margin:10px 0; background:rgba(255,255,255,.03); }
-  .word{ font-weight:800; font-size:16px; margin-bottom:8px; }
-  textarea{
-    width:100%; min-height:56px; padding:10px 10px; border-radius:12px;
-    background:rgba(255,255,255,.06); color:var(--text); border:1px solid var(--line);
-    font-size:14px;
-  }
-  textarea.ok{ background:var(--okbg); border-color:var(--okbd); }
-  textarea.bad{ background:var(--badbg); border-color:var(--badbd); }
-  .msg{ display:inline-block; margin-top:8px; padding:5px 10px; border-radius:999px; border:1px solid var(--line); color:var(--muted); font-size:12px; }
-  .msg.ok{ background:var(--okbg); border-color:var(--okbd); color:var(--text); }
-  .msg.bad{ background:var(--badbg); border-color:var(--badbd); color:var(--text); }
-  .teacher{ margin-top:14px; border-left:4px solid rgba(255,255,255,.18); padding-left:12px; }
-</style>
+<title>Week 2 Writing</title>
+<link rel="stylesheet" href="/assets/styles.css">
 </head>
 <body>
+<script src="/assets/ui.js"></script>
+
 <div class="wrap">
-  <div class="top">
+  <div class="bar">
     <div>
-      <h1>Week 2 Challenge</h1>
-      <p class="sub">Write one strong sentence for each word. Click <strong>Check</strong> to confirm the word is used.</p>
+      <h1>Week 2 Writing</h1>
+      <p class="sub">Write one strong sentence per word. It checks if the word is used + basic quality signals.</p>
     </div>
-    <div class="bar">
-      <a class="pill" href="index.html">⬅ Home</a>
-      <span id="score" class="pill">Score: 0 / 25 used</span>
+    <div class="actions">
+      <span id="score" class="pill">Used: 0 / 25 • Quality: 0 / 25</span>
       <button class="btn" onclick="check()">Check</button>
       <button class="btn" onclick="resetAll()">Reset</button>
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" style="margin-top:14px;">
     <div class="kicker">Write your sentences</div>
     <div id="list"></div>
   </div>
 
-  <div class="card teacher" id="teacher">
-    <div class="kicker">Teacher mode rubric</div>
-    <ul style="margin:0; color:var(--muted); line-height:1.6;">
-      <li><strong>2 points</strong>: correct + meaning clear.</li>
-      <li><strong>1 point</strong>: word used but meaning unclear.</li>
-      <li><strong>0 points</strong>: missing or incorrect usage.</li>
-    </ul>
+  <div class="card" style="margin-top:14px;">
+    <div class="kicker">Rubric (teacher)</div>
+    <p class="small">
+      2 points: correct + meaning is clear. 1 point: used but unclear. 0 points: missing/incorrect.
+      (Teacher pages also have full answer guidance.)
+    </p>
   </div>
 </div>
 
 <script>
-const words = [
+const KEY="wm_progress_v1";
+const words=[
   "stamina","evade","sketchy","tyrant","shirk","amicable","mettle","domineer","mundane",
   "disposition","enact","peaked","refuse","establish","lax","threshold","sneer","rigorous",
   "etiquette","bicker","derelict","faux pas","snicker","haggard","wrangle"
 ];
 
 function render(){
-  const root = document.getElementById("list");
-  root.innerHTML = "";
+  const root=document.getElementById("list");
+  root.innerHTML="";
   words.forEach((w,i)=>{
-    const div = document.createElement("div");
-    div.className = "row";
-    div.innerHTML = `
-      <div class="word">${i+1}. ${w}</div>
+    const div=document.createElement("div");
+    div.className="q";
+    div.innerHTML=`
+      <div class="kicker">${i+1} of 25</div>
+      <div style="font-weight:900;font-size:16px;margin-bottom:8px;">${w}</div>
       <textarea id="t_${i}" placeholder="Write a sentence using “${w}”…"></textarea>
-      <div id="m_${i}" class="msg">Not checked</div>
+      <div id="m_${i}" class="pill" style="margin-top:8px;">Not checked</div>
     `;
     root.appendChild(div);
   });
 }
 
+function wholeWordUsed(word, raw){
+  const text = (raw||"");
+  if(word === "faux pas") return text.toLowerCase().includes("faux pas");
+  const re = new RegExp(`\\b${word.replace(/[.*+?^${}()|[\\]\\\\]/g,"\\$&")}\\b`, "i");
+  return re.test(text);
+}
+
+function qualityScore(raw){
+  const s = (raw||"").trim();
+  let q=0;
+  if(s.length >= 25) q++;                 // not too short
+  if(/[.?!]$/.test(s)) q++;               // has ending punctuation
+  if(/\b(because|so|although|however|when|while)\b/i.test(s)) q++; // has a connector
+  // cap at 1 “quality point” for display; we just want simple signals
+  return (q>=2) ? 1 : 0;
+}
+
 function check(){
-  let used = 0;
+  let used=0, qual=0;
   words.forEach((w,i)=>{
-    const t = document.getElementById(`t_${i}`);
-    const msg = document.getElementById(`m_${i}`);
-    const raw = t.value || "";
-    const text = raw.toLowerCase();
-
-    let ok = false;
-    if (w === "faux pas") ok = text.includes("faux pas");
-    else {
-      const re = new RegExp(`\\b${w.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\$&")}\\b`, "i");
-      ok = re.test(raw);
-    }
-
+    const t=document.getElementById(`t_${i}`);
+    const msg=document.getElementById(`m_${i}`);
     t.classList.remove("ok","bad");
     msg.classList.remove("ok","bad");
+
+    const raw=t.value||"";
+    const ok = wholeWordUsed(w, raw);
 
     if(ok){
       used++;
       t.classList.add("ok");
       msg.classList.add("ok");
-      msg.textContent = "Used ✅ (now check meaning)";
-    } else {
+      const q = qualityScore(raw);
+      qual += q;
+      msg.textContent = q ? "Used ✅ • Looks strong ✅" : "Used ✅ • Make it clearer (add detail).";
+    }else{
       t.classList.add("bad");
       msg.classList.add("bad");
-      msg.textContent = "Missing word ❌";
+      msg.textContent="Missing word ❌";
     }
   });
-  document.getElementById("score").textContent = `Score: ${used} / 25 used`;
+
+  document.getElementById("score").textContent = `Used: ${used} / 25 • Quality: ${qual} / 25`;
+
+  const p = JSON.parse(localStorage.getItem(KEY) || "{}");
+  p.week2 = (used === 25 && qual >= 15);
+  localStorage.setItem(KEY, JSON.stringify(p));
 }
 
 function resetAll(){
   words.forEach((_,i)=>{
-    const t = document.getElementById(`t_${i}`);
-    const msg = document.getElementById(`m_${i}`);
+    const t=document.getElementById(`t_${i}`);
+    const msg=document.getElementById(`m_${i}`);
     t.value="";
     t.classList.remove("ok","bad");
     msg.classList.remove("ok","bad");
     msg.textContent="Not checked";
   });
-  document.getElementById("score").textContent = "Score: 0 / 25 used";
+  document.getElementById("score").textContent="Used: 0 / 25 • Quality: 0 / 25";
 }
 
 render();
