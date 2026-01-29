@@ -1,107 +1,142 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vocabulary Dropdown Story</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Dropdown Story</title>
 <style>
-  body { font-family: Arial, sans-serif; max-width: 950px; margin: 28px auto; padding: 0 14px; line-height: 1.7; }
-  h1 { margin-bottom: 6px; }
-  .sub { color:#444; margin-top:0; }
-  .bar { display:flex; gap:10px; flex-wrap:wrap; margin: 14px 0 18px; }
-  button { padding: 9px 14px; font-size: 15px; cursor:pointer; }
-  select { margin: 0 4px; padding: 4px; }
-  .note { color:#555; font-size: 14px; }
-  .pill { display:inline-block; padding:2px 8px; border-radius: 999px; background:#f2f2f2; font-size:12px; }
-  .ok { background:#d7f7d7; }
-  .bad { background:#ffd6d6; }
-  a { color:#1a4; text-decoration:none; }
-  a:hover { text-decoration:underline; }
+  :root{
+    --bg:#0b1020; --card:#111a33; --text:#eaf0ff; --muted:#b7c3ff;
+    --btn:#1f2f63; --btn2:#243a7a; --line:rgba(255,255,255,.10);
+    --okbg: rgba(34,197,94,.18); --okbd: rgba(34,197,94,.35);
+    --badbg: rgba(239,68,68,.18); --badbd: rgba(239,68,68,.35);
+  }
+  body{ margin:0; font-family:system-ui,Segoe UI,Arial; background:linear-gradient(180deg,var(--bg),#070a14); color:var(--text); }
+  .wrap{ max-width:980px; margin:0 auto; padding:26px 16px 44px; }
+  .top{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+  h1{ margin:0; font-size:28px; letter-spacing:.2px;}
+  .sub{ margin:6px 0 0; color:var(--muted); line-height:1.35}
+  .card{ background:rgba(17,26,51,.88); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:16px; box-shadow:0 10px 30px rgba(0,0,0,.35); }
+  .bar{ display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 18px; align-items:center; }
+  .btn{
+    appearance:none; border:1px solid rgba(255,255,255,.10); color:var(--text);
+    background:linear-gradient(180deg,var(--btn2),var(--btn));
+    padding:10px 14px; border-radius:14px; cursor:pointer;
+    transition:transform .06s ease, filter .12s ease;
+    font-size:14px;
+  }
+  .btn:hover{ filter:brightness(1.06); transform:translateY(-1px);}
+  .pill{ display:inline-block; padding:5px 10px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid var(--line); color:var(--muted); font-size:12px; }
+  a.pill{ text-decoration:none; }
+  a.pill:hover{ text-decoration:underline; }
+  .story p{ margin:14px 0; }
+  select{
+    background:rgba(255,255,255,.06);
+    color:var(--text);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:6px 8px;
+    margin:0 4px;
+  }
+  option{ color:#0b1020; }
+  select.ok{ background:var(--okbg); border-color:var(--okbd); }
+  select.bad{ background:var(--badbg); border-color:var(--badbd); }
+  .note{ color:var(--muted); font-size:13px; margin-top:10px; }
+  .kicker{ font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.8px; margin-bottom:8px; }
+  hr{ border:0; border-top:1px solid var(--line); margin:14px 0; }
 </style>
 </head>
 <body>
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <h1>Dropdown Story</h1>
+        <p class="sub">Fill each blank using the dropdowns. Then click <strong>Check Answers</strong>.</p>
+      </div>
+      <div class="bar">
+        <a class="pill" href="index.html">⬅ Home</a>
+        <span id="score" class="pill">Score: 0 / 25</span>
+        <button class="btn" onclick="checkAnswers()">Check Answers</button>
+        <button class="btn" onclick="resetAll()">Reset</button>
+      </div>
+    </div>
 
-<h1>Dropdown Story</h1>
-<p class="sub">Fill each blank using the dropdown. Then click <strong>Check Answers</strong>.</p>
+    <div class="card">
+      <div class="kicker">The Test of Leadership</div>
+      <div class="story">
+        <p>
+          Ruling the kingdom required great
+          <select data-answer="stamina"></select>,
+          but the ruler often tried to
+          <select data-answer="evade"></select>
+          responsibility. His plans sounded
+          <select data-answer="sketchy"></select>,
+          and many feared he had become a true
+          <select data-answer="tyrant"></select>.
+          Rather than lead, he chose to
+          <select data-answer="shirk"></select>
+          his duties while continuing to
+          <select data-answer="domineer"></select>
+          over others.
+        </p>
 
-<div class="bar">
-  <button onclick="checkAnswers()">Check Answers</button>
-  <button onclick="resetAll()">Reset</button>
-  <span id="score" class="pill">Score: 0 / 25</span>
-  <a href="index.html" class="pill">⬅ Home</a>
-</div>
+        <p>
+          Life in the palace had grown
+          <select data-answer="mundane"></select>,
+          and the ruler’s
+          <select data-answer="disposition"></select>
+          grew increasingly harsh. Officials would
+          <select data-answer="bicker"></select>
+          over small issues, often ignoring basic
+          <select data-answer="etiquette"></select>
+          and committing a serious
+          <select data-answer="faux pas"></select>.
+        </p>
 
-<p>
-Ruling the kingdom required great
-<select data-answer="stamina"></select>,
-but the ruler often tried to
-<select data-answer="evade"></select>
-responsibility. His plans sounded
-<select data-answer="sketchy"></select>,
-and many feared he had become a true
-<select data-answer="tyrant"></select>.
-Rather than lead, he chose to
-<select data-answer="shirk"></select>
-his duties while continuing to
-<select data-answer="domineer"></select>
-over others.
-</p>
+        <p>
+          A calm and
+          <select data-answer="amicable"></select>
+          traveler arrived to test the ruler’s
+          <select data-answer="mettle"></select>.
+          He urged the king to
+          <select data-answer="enact"></select>
+          fair laws and
+          <select data-answer="establish"></select>
+          justice through
+          <select data-answer="rigorous"></select>
+          debate rather than force.
+        </p>
 
-<p>
-Life in the palace had grown
-<select data-answer="mundane"></select>,
-and the ruler’s
-<select data-answer="disposition"></select>
-grew increasingly harsh. Officials would
-<select data-answer="bicker"></select>
-over small issues, often ignoring basic
-<select data-answer="etiquette"></select>
-and committing a serious
-<select data-answer="faux pas"></select>.
-</p>
+        <p>
+          The argument soon
+          <select data-answer="peaked"></select>.
+          Some advisors would
+          <select data-answer="snicker"></select>,
+          while others gave a quiet
+          <select data-answer="sneer"></select>.
+          The discussions became a constant
+          <select data-answer="wrangle"></select>,
+          as the guards, once
+          <select data-answer="lax"></select>,
+          now stood alert.
+        </p>
 
-<p>
-A calm and
-<select data-answer="amicable"></select>
-traveler arrived to test the ruler’s
-<select data-answer="mettle"></select>.
-He urged the king to
-<select data-answer="enact"></select>
-fair laws and
-<select data-answer="establish"></select>
-justice through
-<select data-answer="rigorous"></select>
-debate rather than force.
-</p>
+        <p>
+          By the end, the ruler looked
+          <select data-answer="haggard"></select>,
+          standing at the
+          <select data-answer="threshold"></select>
+          of losing power. Parts of the palace had become
+          <select data-answer="derelict"></select>,
+          and the king finally realized leadership is not something to
+          <select data-answer="refuse"></select>.
+        </p>
 
-<p>
-The argument soon
-<select data-answer="peaked"></select>.
-Some advisors would
-<select data-answer="snicker"></select>,
-while others gave a quiet
-<select data-answer="sneer"></select>.
-The discussions became a constant
-<select data-answer="wrangle"></select>,
-as the guards, once
-<select data-answer="lax"></select>,
-now stood alert.
-</p>
-
-<p>
-By the end, the ruler looked
-<select data-answer="haggard"></select>,
-standing at the
-<select data-answer="threshold"></select>
-of losing power. Parts of the palace had become
-<select data-answer="derelict"></select>,
-and the king finally realized leadership is not something to
-<select data-answer="refuse"></select>.
-</p>
-
-<p class="note">
-Tip: If you want a harder version later, I can make it so each word can be used only once.
-</p>
+        <hr>
+        <p class="note">Want a harder version? I can make “each word can be used only once.”</p>
+      </div>
+    </div>
+  </div>
 
 <script>
 const words = [
@@ -132,14 +167,9 @@ function checkAnswers() {
   document.querySelectorAll("select").forEach(select => {
     const ok = (select.value === select.dataset.answer);
     select.classList.remove("ok","bad");
-    if (!select.value) {
-      select.classList.add("bad");
-    } else if (ok) {
-      select.classList.add("ok");
-      correct++;
-    } else {
-      select.classList.add("bad");
-    }
+    if (!select.value) select.classList.add("bad");
+    else if (ok) { select.classList.add("ok"); correct++; }
+    else select.classList.add("bad");
   });
   document.getElementById("score").textContent = `Score: ${correct} / 25`;
 }
@@ -151,6 +181,6 @@ function resetAll() {
 
 populateDropdowns();
 </script>
-
 </body>
 </html>
+
