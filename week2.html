@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week 2 Challenge</title>
+<style>
+  body{font-family:system-ui,Arial;max-width:980px;margin:28px auto;padding:0 14px;line-height:1.6}
+  h1{margin:0 0 6px}
+  .sub{margin:0 0 16px;color:#444}
+  .top{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0 18px}
+  button{padding:9px 14px;font-size:15px;cursor:pointer}
+  .pill{display:inline-block;padding:2px 8px;border-radius:999px;background:#f2f2f2;font-size:12px}
+  a{color:#1a4;text-decoration:none}
+  a:hover{text-decoration:underline}
+  .row{border:1px solid #ddd;border-radius:12px;padding:12px;margin:10px 0}
+  .word{font-weight:800;font-size:16px}
+  textarea{width:100%;min-height:54px;padding:10px;font-size:14px;border-radius:10px;border:1px solid #ccc;margin-top:8px}
+  .ok{background:#d7f7d7}
+  .bad{background:#ffd6d6}
+  .teacher{border-left:4px solid #333;padding-left:12px;margin-top:18px}
+  .muted{color:#555}
+</style>
+</head>
+<body>
+
+<h1>Week 2 Challenge</h1>
+<p class="sub">Write one strong sentence for each word. Then click <strong>Check</strong>. This checks if the word is used correctly (basic), and gives a score.</p>
+
+<div class="top">
+  <button onclick="check()">Check</button>
+  <button onclick="resetAll()">Reset</button>
+  <span id="score" class="pill">Score: 0 / 25 used</span>
+  <a href="index.html" class="pill">⬅ Home</a>
+</div>
+
+<div id="list"></div>
+
+<div class="teacher" id="teacher">
+  <h2 id="teacher">Teacher mode rubric (quick)</h2>
+  <ul class="muted">
+    <li><strong>2 points</strong>: word used correctly + sentence shows meaning clearly.</li>
+    <li><strong>1 point</strong>: word used but meaning unclear OR grammar too messy.</li>
+    <li><strong>0 points</strong>: word missing OR used incorrectly.</li>
+  </ul>
+  <p class="muted">Tip: Ask the student to replace the target word with a simple synonym to prove they understand it.</p>
+</div>
+
+<script>
+const words = [
+  "stamina","evade","sketchy","tyrant","shirk","amicable","mettle","domineer","mundane",
+  "disposition","enact","peaked","refuse","establish","lax","threshold","sneer","rigorous",
+  "etiquette","bicker","derelict","faux pas","snicker","haggard","wrangle"
+];
+
+function render(){
+  const root = document.getElementById("list");
+  root.innerHTML = "";
+  words.forEach((w,i)=>{
+    const div = document.createElement("div");
+    div.className = "row";
+    div.innerHTML = `
+      <div class="word">${i+1}. ${w}</div>
+      <textarea id="t_${i}" placeholder="Write a sentence using “${w}”…"></textarea>
+      <div id="m_${i}" class="pill" style="margin-top:8px;">Not checked</div>
+    `;
+    root.appendChild(div);
+  });
+}
+
+function check(){
+  let used = 0;
+  words.forEach((w,i)=>{
+    const t = document.getElementById(`t_${i}`);
+    const msg = document.getElementById(`m_${i}`);
+    const text = (t.value || "").toLowerCase();
+
+    // Basic “used” check: word appears as whole word (handles faux pas too)
+    let ok = false;
+    if (w === "faux pas") {
+      ok = text.includes("faux pas");
+    } else {
+      const re = new RegExp(`\\b${w.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\$&")}\\b`, "i");
+      ok = re.test(t.value || "");
+    }
+
+    msg.classList.remove("ok","bad");
+    t.classList.remove("ok","bad");
+
+    if(ok){
+      used++;
+      msg.textContent = "Used ✅ (now check meaning)";
+      msg.classList.add("ok");
+      t.classList.add("ok");
+    } else {
+      msg.textContent = "Missing word ❌";
+      msg.classList.add("bad");
+      t.classList.add("bad");
+    }
+  });
+  document.getElementById("score").textContent = `Score: ${used} / 25 used`;
+}
+
+function resetAll(){
+  words.forEach((_,i)=>{
+    const t = document.getElementById(`t_${i}`);
+    const msg = document.getElementById(`m_${i}`);
+    t.value="";
+    t.classList.remove("ok","bad");
+    msg.classList.remove("ok","bad");
+    msg.textContent="Not checked";
+  });
+  document.getElementById("score").textContent = "Score: 0 / 25 used";
+}
+
+render();
+</script>
+
+</body>
+</html>
