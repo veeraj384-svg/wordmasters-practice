@@ -1,72 +1,66 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Teacher Mode • Answer Keys</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Teacher • Answer Keys</title>
   <link rel="stylesheet" href="/assets/styles.css">
-  <style>
-    .teacherBanner{
-      background: rgba(255, 196, 0, .10);
-      border: 1px solid rgba(255, 196, 0, .28);
-      border-radius: 14px;
-      padding: 12px 14px;
-      margin-top: 14px;
-    }
-    .keyItem{ margin:10px 0; }
-    .keyItem b{ display:inline-block; min-width: 120px; }
-    .mini{ font-size: 12px; color: var(--muted); margin-top: 6px; line-height:1.4; }
-    .dangerBtn{
-      background: linear-gradient(180deg, rgba(239,68,68,.55), rgba(239,68,68,.35));
-      border: 1px solid rgba(239,68,68,.40);
-    }
-  </style>
 </head>
 <body>
-  <script src="/assets/ui.js"></script>
 
-  <div class="wrap">
-    <div class="bar">
-      <div>
-        <h1>Answer Keys</h1>
-        <p class="sub">Teacher-only keys + explanations. Print if you want a paper copy.</p>
-      </div>
-      <div class="actions">
-        <a class="pill" href="/teacher/index.html">Dashboard</a>
-        <a class="pill" href="/teacher/reveal.html">Reveal</a>
-        <button class="btn" onclick="window.print()">Print</button>
-        <button class="btn dangerBtn" onclick="logout()">Log out</button>
-      </div>
+<div class="wrap">
+  <div class="bar">
+    <h1>Answer Keys</h1>
+    <div class="actions">
+      <a class="pill" href="/teacher/index.html">Dashboard</a>
+      <button class="btn" onclick="window.print()">Print</button>
+      <button class="btn dangerBtn" onclick="logout()">Log out</button>
     </div>
+  </div>
 
-    <div class="teacherBanner">
-      <div style="font-weight:900;">🔒 Teacher Mode</div>
-      <div class="mini">Protected by Cloudflare (server-side). Students cannot bypass this.</div>
-    </div>
+  <div class="card">
+    <h2>Dropdown Story — Correct Order</h2>
+    <ol>
+      <li>stamina</li>
+      <li>evade</li>
+      <li>sketchy</li>
+      <li>tyrant</li>
+      <li>shirk</li>
+      <li>domineer</li>
+      <li>mundane</li>
+      <li>disposition</li>
+      <li>bicker</li>
+      <li>etiquette</li>
+      <li>faux pas</li>
+      <li>amicable</li>
+      <li>mettle</li>
+      <li>enact</li>
+      <li>establish</li>
+      <li>rigorous</li>
+      <li>peaked</li>
+      <li>snicker</li>
+      <li>sneer</li>
+      <li>wrangle</li>
+      <li>lax</li>
+      <li>haggard</li>
+      <li>threshold</li>
+      <li>derelict</li>
+      <li>refuse</li>
+    </ol>
+  </div>
+</div>
 
-    <div class="card" style="margin-top:14px;">
-      <div class="kicker">Dropdown Story — correct fill (in order)</div>
+<script>
+function logout() {
+  const host = location.host;
+  location.href = "https://logout:logout@" + host + "/teacher/";
+  setTimeout(() => {
+    location.replace("/index.html");
+  }, 700);
+}
+</script>
 
-      <div class="keyItem"><b>1</b> stamina</div>
-      <div class="keyItem"><b>2</b> evade</div>
-      <div class="keyItem"><b>3</b> sketchy</div>
-      <div class="keyItem"><b>4</b> tyrant</div>
-      <div class="keyItem"><b>5</b> shirk</div>
-      <div class="keyItem"><b>6</b> domineer</div>
-      <div class="keyItem"><b>7</b> mundane</div>
-      <div class="keyItem"><b>8</b> disposition</div>
-      <div class="keyItem"><b>9</b> bicker</div>
-      <div class="keyItem"><b>10</b> etiquette</div>
-      <div class="keyItem"><b>11</b> faux pas</div>
-      <div class="keyItem"><b>12</b> amicable</div>
-      <div class="keyItem"><b>13</b> mettle</div>
-      <div class="keyItem"><b>14</b> enact</div>
-      <div class="keyItem"><b>15</b> establish</div>
-      <div class="keyItem"><b>16</b> rigorous</div>
-      <div class="keyItem"><b>17</b> peaked</div>
-      <div class="keyItem"><b>18</b> snicker</div>
-      <div class="keyItem"><b>19</b> sneer</div>
-      <div class="keyItem"><b>20</b> wrangle</div>
-      <div class="keyItem"><b>21</b> lax</div>
-      <div class
+</body>
+</html>
+
 
