@@ -14,15 +14,11 @@
       margin-top: 14px;
     }
     .keyItem{ margin:10px 0; }
-    .keyItem b{ display:inline-block; min-width: 110px; }
+    .keyItem b{ display:inline-block; min-width: 120px; }
     .mini{ font-size: 12px; color: var(--muted); margin-top: 6px; line-height:1.4; }
-    .copy{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      background: rgba(255,255,255,.06);
-      border:1px solid var(--line);
-      padding:10px;
-      border-radius: 12px;
-      overflow:auto;
+    .dangerBtn{
+      background: linear-gradient(180deg, rgba(239,68,68,.55), rgba(239,68,68,.35));
+      border: 1px solid rgba(239,68,68,.40);
     }
   </style>
 </head>
@@ -33,21 +29,24 @@
     <div class="bar">
       <div>
         <h1>Answer Keys</h1>
-        <p class="sub">Keys + explanations (teacher only). Don’t share this link with students.</p>
+        <p class="sub">Teacher-only keys + explanations. Print if you want a paper copy.</p>
       </div>
       <div class="actions">
-        <a class="pill" href="/teacher/index.html">Teacher Dashboard</a>
+        <a class="pill" href="/teacher/index.html">Dashboard</a>
+        <a class="pill" href="/teacher/reveal.html">Reveal</a>
         <button class="btn" onclick="window.print()">Print</button>
+        <button class="btn dangerBtn" onclick="logout()">Log out</button>
       </div>
     </div>
 
     <div class="teacherBanner">
       <div style="font-weight:900;">🔒 Teacher Mode</div>
-      <div class="mini">These answers are protected by your Cloudflare username/password.</div>
+      <div class="mini">Protected by Cloudflare (server-side). Students cannot bypass this.</div>
     </div>
 
     <div class="card" style="margin-top:14px;">
-      <div class="kicker">Dropdown Story (correct fill)</div>
+      <div class="kicker">Dropdown Story — correct fill (in order)</div>
+
       <div class="keyItem"><b>1</b> stamina</div>
       <div class="keyItem"><b>2</b> evade</div>
       <div class="keyItem"><b>3</b> sketchy</div>
@@ -69,33 +68,5 @@
       <div class="keyItem"><b>19</b> sneer</div>
       <div class="keyItem"><b>20</b> wrangle</div>
       <div class="keyItem"><b>21</b> lax</div>
-      <div class="keyItem"><b>22</b> haggard</div>
-      <div class="keyItem"><b>23</b> threshold</div>
-      <div class="keyItem"><b>24</b> derelict</div>
-      <div class="keyItem"><b>25</b> refuse</div>
-    </div>
+      <div class
 
-    <div class="card" style="margin-top:14px;">
-      <div class="kicker">Week 1 — Part 2 (sentence answers)</div>
-      <div class="keyItem"><b>1</b> enact — make a rule/law official</div>
-      <div class="keyItem"><b>2</b> establish — set up a system or routine</div>
-      <div class="keyItem"><b>3</b> rigorous — strict/careful/demanding</div>
-      <div class="keyItem"><b>4</b> peaked — reached the highest point</div>
-      <div class="keyItem"><b>5</b> lax — not strict enough</div>
-      <div class="keyItem"><b>6</b> threshold — doorway/beginning point</div>
-      <div class="keyItem"><b>7</b> sneer — scornful look/response</div>
-      <div class="keyItem"><b>8</b> snicker — quiet rude laugh</div>
-      <div class="keyItem"><b>9</b> bicker — argue about small things</div>
-      <div class="keyItem"><b>10</b> etiquette — rules for polite behavior</div>
-    </div>
-
-    <div class="card" style="margin-top:14px;">
-      <div class="kicker">Teacher trick (optional)</div>
-      <p class="small">Want a “Reveal Answers” button on student pages without editing each page manually? Use the teacher-only versions below:</p>
-      <div class="copy">
-/teacher/reveal.html
-      </div>
-    </div>
-  </div>
-</body>
-</html>
