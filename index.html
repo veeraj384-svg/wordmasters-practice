@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Vocabulary Dropdown Story</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    max-width: 900px;
+    margin: 40px auto;
+    line-height: 1.7;
+    font-size: 16px;
+  }
+  select {
+    margin: 0 4px;
+  }
+  button {
+    margin-top: 20px;
+    padding: 8px 14px;
+    font-size: 15px;
+  }
+</style>
+</head>
+<body>
+
+<h2>The Test of Leadership</h2>
+
+<p>
+Ruling the kingdom required great
+<select data-answer="stamina"></select>,
+but the ruler often tried to
+<select data-answer="evade"></select>
+responsibility. His plans sounded
+<select data-answer="sketchy"></select>,
+and many feared he had become a true
+<select data-answer="tyrant"></select>.
+Rather than lead, he chose to
+<select data-answer="shirk"></select>
+his duties while continuing to
+<select data-answer="domineer"></select>
+over others.
+</p>
+
+<p>
+Life in the palace had grown
+<select data-answer="mundane"></select>,
+and the ruler’s
+<select data-answer="disposition"></select>
+grew increasingly harsh. Officials would
+<select data-answer="bicker"></select>
+over small issues, often ignoring basic
+<select data-answer="etiquette"></select>
+and committing a serious
+<select data-answer="faux pas"></select>.
+</p>
+
+<p>
+A calm and
+<select data-answer="amicable"></select>
+traveler arrived to test the ruler’s
+<select data-answer="mettle"></select>.
+He urged the king to
+<select data-answer="enact"></select>
+fair laws and
+<select data-answer="establish"></select>
+justice through
+<select data-answer="rigorous"></select>
+debate rather than force.
+</p>
+
+<p>
+The argument soon
+<select data-answer="peaked"></select>.
+Some advisors would
+<select data-answer="snicker"></select>,
+while others gave a quiet
+<select data-answer="sneer"></select>.
+The discussions became a constant
+<select data-answer="wrangle"></select>,
+as the guards, once
+<select data-answer="lax"></select>,
+now stood alert.
+</p>
+
+<p>
+By the end, the ruler looked
+<select data-answer="haggard"></select>,
+standing at the
+<select data-answer="threshold"></select>
+of losing power. Parts of the palace had become
+<select data-answer="derelict"></select>,
+and the king finally realized leadership is not something to
+<select data-answer="refuse"></select>.
+</p>
+
+<button onclick="checkAnswers()">Check Answers</button>
+
+<script>
+const words = [
+  "stamina","evade","sketchy","tyrant","shirk","amicable","mettle","domineer","mundane",
+  "disposition","enact","peaked","refuse","establish","lax","threshold","sneer","rigorous",
+  "etiquette","bicker","derelict","faux pas","snicker","haggard","wrangle"
+];
+
+document.querySelectorAll("select").forEach(select => {
+  const blank = document.createElement("option");
+  blank.text = "— choose —";
+  blank.value = "";
+  select.appendChild(blank);
+
+  words.forEach(word => {
+    const opt = document.createElement("option");
+    opt.value = word;
+    opt.text = word;
+    select.appendChild(opt);
+  });
+});
+
+function checkAnswers() {
+  document.querySelectorAll("select").forEach(select => {
+    if (select.value === select.dataset.answer) {
+      select.style.backgroundColor = "#c8f7c5";
+    } else {
+      select.style.backgroundColor = "#f7c5c5";
+    }
+  });
+}
+</script>
+
+</body>
+</html>
