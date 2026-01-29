@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week 1 Quiz</title>
+<style>
+  body{font-family:system-ui,Arial;max-width:980px;margin:28px auto;padding:0 14px;line-height:1.6}
+  h1{margin:0 0 6px}
+  .sub{margin:0 0 16px;color:#444}
+  .top{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0 18px}
+  button{padding:9px 14px;font-size:15px;cursor:pointer}
+  .pill{display:inline-block;padding:2px 8px;border-radius:999px;background:#f2f2f2;font-size:12px}
+  a{color:#1a4;text-decoration:none}
+  a:hover{text-decoration:underline}
+  .q{border:1px solid #ddd;border-radius:12px;padding:12px;margin:10px 0}
+  .q h3{margin:0 0 8px;font-size:16px}
+  select{padding:6px}
+  .ok{background:#d7f7d7}
+  .bad{background:#ffd6d6}
+  .teacher{border-left:4px solid #333;padding-left:12px;margin-top:18px}
+  .muted{color:#555}
+</style>
+</head>
+<body>
+
+<h1>Week 1 Quiz</h1>
+<p class="sub">Two parts: (1) match words to meanings, (2) choose best word for each sentence.</p>
+
+<div class="top">
+  <button onclick="check()">Check</button>
+  <button onclick="resetAll()">Reset</button>
+  <span id="score" class="pill">Score: 0 / 20</span>
+  <a href="index.html" class="pill">⬅ Home</a>
+</div>
+
+<h2>Part 1 — Match the meaning</h2>
+
+<div id="part1"></div>
+
+<h2>Part 2 — Best word in the sentence</h2>
+<div id="part2"></div>
+
+<div id="teacher" class="teacher">
+  <h2 id="teacher">Teacher mode guidance</h2>
+  <p class="muted">
+    Scoring idea: +1 each. After checking, have the student explain <em>why</em> the right word fits the context.
+  </p>
+</div>
+
+<script>
+const part1Items = [
+  {w:"stamina", a:"strength to keep going for a long time"},
+  {w:"evade", a:"avoid or escape (a duty, question, or danger)"},
+  {w:"sketchy", a:"doubtful; not trustworthy; suspicious"},
+  {w:"tyrant", a:"cruel ruler who uses power unfairly"},
+  {w:"shirk", a:"avoid work or responsibility"},
+  {w:"amicable", a:"friendly and peaceful"},
+  {w:"mettle", a:"courage/strength shown in a challenge"},
+  {w:"domineer", a:"try to control others in a bossy way"},
+  {w:"mundane", a:"ordinary; not exciting"},
+  {w:"disposition", a:"a person’s usual mood or attitude"}
+];
+
+const definitions = part1Items.map(x=>x.a);
+
+// Part 2
+const part2Items = [
+  {id:"p2_1", a:"enact", prompt:"The council voted to ________ a new rule about recycling in the city."},
+  {id:"p2_2", a:"establish", prompt:"We need to ________ a clear routine for homework and reading."},
+  {id:"p2_3", a:"rigorous", prompt:"Her training plan was ________—it pushed her every day."},
+  {id:"p2_4", a:"peaked", prompt:"The storm ________ at midnight and then slowly weakened."},
+  {id:"p2_5", a:"lax", prompt:"Security was too ________, so anyone could walk in."},
+  {id:"p2_6", a:"threshold", prompt:"He stood at the ________ of the doorway, unsure whether to enter."},
+  {id:"p2_7", a:"sneer", prompt:"He gave a ________ when he heard the silly excuse."},
+  {id:"p2_8", a:"snicker", prompt:"The kids tried not to ________ during the serious assembly."},
+  {id:"p2_9", a:"bicker", prompt:"They began to ________ about whose turn it was to clean up."},
+  {id:"p2_10", a:"etiquette", prompt:"Good table ________ means saying ‘please’ and ‘thank you’."}
+];
+
+const part2Options = [
+  "enact","establish","rigorous","peaked","lax","threshold","sneer","snicker","bicker","etiquette"
+];
+
+function shuffle(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function render(){
+  // Part 1
+  const p1 = document.getElementById("part1");
+  p1.innerHTML = "";
+  const defsShuffled = shuffle(definitions);
+
+  part1Items.forEach((item, idx) => {
+    const box = document.createElement("div");
+    box.className = "q";
+    box.innerHTML = `
+      <h3>${idx+1}. <strong>${item.w}</strong> means…</h3>
+      <select data-answer="${item.a}">
+        <option value="">— choose —</option>
+        ${defsShuffled.map(d=>`<option value="${d}">${d}</option>`).join("")}
+      </select>
+    `;
+    p1.appendChild(box);
+  });
+
+  // Part 2
+  const p2 = document.getElementById("part2");
+  p2.innerHTML = "";
+  part2Items.forEach((item, idx) => {
+    const box = document.createElement("div");
+    box.className = "q";
+    box.innerHTML = `
+      <h3>${idx+1}. ${item.prompt}</h3>
+      <select id="${item.id}" data-answer="${item.a}">
+        <option value="">— choose —</option>
+        ${part2Options.map(w=>`<option value="${w}">${w}</option>`).join("")}
+      </select>
+    `;
+    p2.appendChild(box);
+  });
+}
+
+function check(){
+  let correct = 0;
+  const all = document.querySelectorAll("select");
+  all.forEach(sel=>{
+    sel.classList.remove("ok","bad");
+    const ok = sel.value === sel.dataset.answer;
+    if(ok){ sel.classList.add("ok"); correct++; }
+    else { sel.classList.add("bad"); }
+  });
+  document.getElementById("score").textContent = `Score: ${correct} / 20`;
+  location.hash = "#top";
+}
+
+function resetAll(){
+  document.querySelectorAll("select").forEach(sel=>{
+    sel.value="";
+    sel.classList.remove("ok","bad");
+  });
+  document.getElementById("score").textContent = "Score: 0 / 20";
+}
+
+render();
+</script>
+
+</body>
+</html>
