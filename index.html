@@ -1,131 +1,139 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Vocabulary Dropdown Story</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    max-width: 900px;
-    margin: 40px auto;
-    line-height: 1.7;
-    font-size: 16px;
-  }
-  select {
-    margin: 0 4px;
-  }
-  button {
-    margin-top: 20px;
-    padding: 8px 14px;
-    font-size: 15px;
-  }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>WordMasters Practice</title>
+  <style>
+    :root{
+      --bg:#0b1020; --card:#111a33; --text:#eaf0ff; --muted:#b7c3ff;
+      --btn:#1f2f63; --btn2:#243a7a; --ok:#22c55e; --warn:#f59e0b;
+    }
+    body{ margin:0; font-family:system-ui,Segoe UI,Arial; background:linear-gradient(180deg,var(--bg),#070a14); color:var(--text);}
+    .wrap{ max-width:920px; margin:0 auto; padding:28px 16px 44px;}
+    header{ display:flex; gap:12px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; }
+    h1{ margin:0; font-size:28px; letter-spacing:.3px;}
+    .sub{ margin:6px 0 0; color:var(--muted); line-height:1.3}
+    .card{ background:rgba(17,26,51,.85); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:16px; box-shadow:0 10px 30px rgba(0,0,0,.35);}
+    .grid{ display:grid; gap:12px; margin-top:16px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));}
+    a.btn{
+      display:block; text-decoration:none; color:var(--text);
+      background:linear-gradient(180deg,var(--btn2),var(--btn));
+      border:1px solid rgba(255,255,255,.10);
+      padding:14px 14px; border-radius:14px;
+      transition:transform .06s ease, filter .12s ease;
+    }
+    a.btn:hover{ filter:brightness(1.06); transform:translateY(-1px);}
+    .kicker{ font-size:12px; color:var(--muted); margin-bottom:4px; text-transform:uppercase; letter-spacing:.8px;}
+    .title{ font-size:18px; font-weight:700; margin:0 0 6px;}
+    .desc{ margin:0; color:var(--muted); font-size:14px; line-height:1.35;}
+    .row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:10px;}
+    .toggle{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 12px; border-radius:12px;
+      background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.10);
+      user-select:none;
+    }
+    .pill{ font-size:12px; padding:3px 8px; border-radius:999px; background:rgba(34,197,94,.15); color:var(--ok); border:1px solid rgba(34,197,94,.25);}
+    .pill.warn{ background:rgba(245,158,11,.12); color:var(--warn); border-color:rgba(245,158,11,.22);}
+    footer{ margin-top:18px; color:var(--muted); font-size:13px; line-height:1.4;}
+    code{ background:rgba(255,255,255,.08); padding:2px 6px; border-radius:8px;}
+    .teacher{ display:none; margin-top:12px;}
+    .teacher.show{ display:block;}
+    .small{ font-size:12px; color:var(--muted);}
+  </style>
 </head>
 <body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>WordMasters Practice</h1>
+        <p class="sub">Choose an activity. Add more pages anytime — just upload new <code>.html</code> files.</p>
+      </div>
+      <div class="row">
+        <label class="toggle">
+          <input id="teacherToggle" type="checkbox" />
+          <span><strong>Teacher mode</strong></span>
+          <span class="pill warn">optional</span>
+        </label>
+      </div>
+    </header>
 
-<h2>The Test of Leadership</h2>
+    <div class="card">
+      <div class="kicker">Start here</div>
+      <div class="grid">
 
-<p>
-Ruling the kingdom required great
-<select data-answer="stamina"></select>,
-but the ruler often tried to
-<select data-answer="evade"></select>
-responsibility. His plans sounded
-<select data-answer="sketchy"></select>,
-and many feared he had become a true
-<select data-answer="tyrant"></select>.
-Rather than lead, he chose to
-<select data-answer="shirk"></select>
-his duties while continuing to
-<select data-answer="domineer"></select>
-over others.
-</p>
+        <!-- ✅ Change these links to match your actual filenames in the repo -->
+        <a class="btn" href="vocab_dropdown_story.html">
+          <div class="kicker">Vocabulary</div>
+          <div class="title">Dropdown Story</div>
+          <p class="desc">Fill in the blanks using a dropdown menu. Great for WordMasters practice.</p>
+        </a>
 
-<p>
-Life in the palace had grown
-<select data-answer="mundane"></select>,
-and the ruler’s
-<select data-answer="disposition"></select>
-grew increasingly harsh. Officials would
-<select data-answer="bicker"></select>
-over small issues, often ignoring basic
-<select data-answer="etiquette"></select>
-and committing a serious
-<select data-answer="faux pas"></select>.
-</p>
+        <a class="btn" href="week1.html">
+          <div class="kicker">WordMasters</div>
+          <div class="title">Week 1 Practice</div>
+          <p class="desc">Vocabulary + usage practice for this week (add more weeks anytime).</p>
+        </a>
 
-<p>
-A calm and
-<select data-answer="amicable"></select>
-traveler arrived to test the ruler’s
-<select data-answer="mettle"></select>.
-He urged the king to
-<select data-answer="enact"></select>
-fair laws and
-<select data-answer="establish"></select>
-justice through
-<select data-answer="rigorous"></select>
-debate rather than force.
-</p>
+        <a class="btn" href="week2.html">
+          <div class="kicker">WordMasters</div>
+          <div class="title">Week 2 Practice</div>
+          <p class="desc">Another weekly set. If you don’t have it yet, this link will work once you upload it.</p>
+        </a>
 
-<p>
-The argument soon
-<select data-answer="peaked"></select>.
-Some advisors would
-<select data-answer="snicker"></select>,
-while others gave a quiet
-<select data-answer="sneer"></select>.
-The discussions became a constant
-<select data-answer="wrangle"></select>,
-as the guards, once
-<select data-answer="lax"></select>,
-now stood alert.
-</p>
+        <a class="btn" href="about.html">
+          <div class="kicker">Info</div>
+          <div class="title">About / Instructions</div>
+          <p class="desc">How to use the site + tips for parents & students.</p>
+        </a>
 
-<p>
-By the end, the ruler looked
-<select data-answer="haggard"></select>,
-standing at the
-<select data-answer="threshold"></select>
-of losing power. Parts of the palace had become
-<select data-answer="derelict"></select>,
-and the king finally realized leadership is not something to
-<select data-answer="refuse"></select>.
-</p>
+      </div>
 
-<button onclick="checkAnswers()">Check Answers</button>
+      <div id="teacherBox" class="teacher">
+        <hr style="border:0;border-top:1px solid rgba(255,255,255,.10);margin:14px 0;">
+        <div class="kicker">Teacher mode</div>
+        <p class="desc">
+          Put links here that you don’t want students clicking accidentally (answer keys, editing notes, etc.).
+        </p>
 
-<script>
-const words = [
-  "stamina","evade","sketchy","tyrant","shirk","amicable","mettle","domineer","mundane",
-  "disposition","enact","peaked","refuse","establish","lax","threshold","sneer","rigorous",
-  "etiquette","bicker","derelict","faux pas","snicker","haggard","wrangle"
-];
+        <div class="grid" style="margin-top:10px">
+          <a class="btn" href="answers_week1.html">
+            <div class="kicker">Answer Key</div>
+            <div class="title">Week 1 Answers</div>
+            <p class="desc">Only visible when Teacher mode is ON.</p>
+          </a>
 
-document.querySelectorAll("select").forEach(select => {
-  const blank = document.createElement("option");
-  blank.text = "— choose —";
-  blank.value = "";
-  select.appendChild(blank);
+          <a class="btn" href="answers_week2.html">
+            <div class="kicker">Answer Key</div>
+            <div class="title">Week 2 Answers</div>
+            <p class="desc">Only visible when Teacher mode is ON.</p>
+          </a>
+        </div>
 
-  words.forEach(word => {
-    const opt = document.createElement("option");
-    opt.value = word;
-    opt.text = word;
-    select.appendChild(opt);
-  });
-});
+        <p class="small" style="margin-top:10px">
+          Tip: Teacher mode is just a “hide/show” — it’s not a password. If you need password protection, tell me and I’ll show options.
+        </p>
+      </div>
 
-function checkAnswers() {
-  document.querySelectorAll("select").forEach(select => {
-    if (select.value === select.dataset.answer) {
-      select.style.backgroundColor = "#c8f7c5";
-    } else {
-      select.style.backgroundColor = "#f7c5c5";
+      <footer>
+        <strong>Adding new pages:</strong> upload a new file like <code>week3.html</code> to your repo, then add a button link here.
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    const toggle = document.getElementById('teacherToggle');
+    const box = document.getElementById('teacherBox');
+    toggle.addEventListener('change', () => {
+      box.classList.toggle('show', toggle.checked);
+      localStorage.setItem('teacherMode', toggle.checked ? '1' : '0');
+    });
+    // remember setting
+    if (localStorage.getItem('teacherMode') === '1') {
+      toggle.checked = true;
+      box.classList.add('show');
     }
-  });
-}
-</script>
-
+  </script>
 </body>
 </html>
