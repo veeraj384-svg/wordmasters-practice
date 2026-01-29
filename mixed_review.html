@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mixed Review</title>
+<link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+<script src="/assets/ui.js"></script>
+
+<div class="wrap">
+  <div class="bar">
+    <div>
+      <h1>Mixed Review</h1>
+      <p class="sub">Context clues, synonyms/antonyms, and tricky usage (auto-check).</p>
+    </div>
+    <div class="actions">
+      <span id="score" class="pill">Score: 0 / 18</span>
+      <button class="btn" onclick="check()">Check</button>
+      <button class="btn" onclick="resetAll()">Reset</button>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px;">
+    <div class="kicker">Part A — Context clues (choose the best word)</div>
+    <div id="a"></div>
+  </div>
+
+  <div class="card" style="margin-top:14px;">
+    <div class="kicker">Part B — Synonym / Antonym</div>
+    <div id="b"></div>
+  </div>
+</div>
+
+<script>
+const KEY="wm_progress_v1";
+
+const A = [
+  {ans:"derelict", q:"The old factory was abandoned, with broken windows and weeds everywhere. It looked ________."},
+  {ans:"wrangle", q:"After 30 minutes of arguing about the rules, we finally stopped the ________ and started playing."},
+  {ans:"refuse", q:"I will not ________ to help if someone needs me."},
+  {ans:"rigorous", q:"The scientist followed a ________ process to make sure results were accurate."},
+  {ans:"lax", q:"When rules are too ________, people stop taking them seriously."},
+  {ans:"mettle", q:"She showed her ________ by staying calm under pressure."},
+  {ans:"evade", q:"When asked about the missing homework, he tried to ________ the question."},
+  {ans:"mundane", q:"Doing the same chores every day can feel ________."},
+  {ans:"domineer", q:"He kept interrupting and trying to ________ the conversation."}
+];
+
+const Aopts = [
+  "derelict","wrangle","refuse","rigorous","lax","mettle","evade","mundane","domineer",
+  "stamina","tyrant","sketchy","amicable","threshold","bicker","snicker","sneer","etiquette"
+];
+
+const B = [
+  {type:"Synonym", word:"amicable", ans:"friendly"},
+  {type:"Synonym", word:"sketchy", ans:"suspicious"},
+  {type:"Synonym", word:"mundane", ans:"ordinary"},
+  {type:"Synonym", word:"bicker", ans:"argue"},
+  {type:"Antonym", word:"lax", ans:"strict"},
+  {type:"Antonym", word:"amicable", ans:"hostile"},
+  {type:"Antonym", word:"refuse", ans:"accept"},
+  {type:"Antonym", word:"derelict", ans:"maintained"},
+  {type:"Antonym", word:"sneer", ans:"praise"}
+];
+
+const Bopts = ["friendly","suspicious","ordinary","argue","strict","hostile","accept","maintained","praise"];
+
+function render(){
+  const a=document.getElementById("a");
+  a.innerHTML="";
+  A.forEach((it,i)=>{
+    const div=document.createElement("div");
+    div.className="q";
+    div.innerHTML=`
+      <div class="kicker">A${i+1}</div>
+      <div style="font-weight:800;margin-bottom:8px;">${it.q}</div>
+      <select data-ans="${it.ans}">
+        <option value="">— choose —</option>
+        ${Aopts.map(x=>`<option value="${x}">${x}</option>`).join("")}
+      </select>
+    `;
+    a.appendChild(div);
+  });
+
+  const b=document.getElementById("b");
+  b.innerHTML="";
+  B.forEach((it,i)=>{
+    const div=document.createElement("div");
+    div.className="q";
+    div.innerHTML=`
+      <div class="kicker">B${i+1} • ${it.type}</div>
+      <div style="font-weight:800;margin-bottom:8px;">${it.word}</div>
+      <select data-ans="${it.ans}">
+        <option value="">— choose —</option>
+        ${Bopts.map(x=>`<option value="${x}">${x}</option>`).join("")}
+      </select>
+    `;
+    b.appendChild(div);
+  });
+}
+
+function check(){
+  let correct=0;
+  document.querySelectorAll("select").forEach(sel=>{
+    sel.classList.remove("ok","bad");
+    const ok = sel.value === sel.dataset.ans;
+    if(ok){ sel.classList.add("ok"); correct++; }
+    else sel.classList.add("bad");
+  });
+  document.getElementById("score").textContent = `Score: ${correct} / 18`;
+
+  const p = JSON.parse(localStorage.getItem(KEY) || "{}");
+  p.mixed = (correct >= 16);
+  localStorage.setItem(KEY, JSON.stringify(p));
+}
+
+function resetAll(){
+  document.querySelectorAll("select").forEach(sel=>{ sel.value=""; sel.classList.remove("ok","bad"); });
+  document.getElementById("score").textContent="Score: 0 / 18";
+}
+
+render();
+</script>
+</body>
+</html>
